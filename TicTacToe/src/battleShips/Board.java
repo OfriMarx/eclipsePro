@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -14,12 +15,13 @@ import javax.swing.JPanel;
 public class Board extends JFrame{
 	
 	public static LinkedList<String> list = new LinkedList<String>();
+	private static LinkedList<JButton> buttonList = new LinkedList<JButton>();
 	public static boolean PlayerTurn = true;
 	
 	Board()
 	{
 		setSize(600,600);
-		setTitle("title");
+		setTitle("Tic Tac Toe");
 		setResizable(false);
 		
 		// setting the frame in the middle of the screen
@@ -42,22 +44,7 @@ public class Board extends JFrame{
 		b1.setBackground(Color.white);
 		b1.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e){
-			if (PlayerTurn)
-			{
-				b1.setBackground(Color.blue);
-				list.set(0, "X");
-				CheckBoard(list, "X", p);
-				
-				
-			}	
-			else
-			{
-				b1.setBackground(Color.red);
-				list.set(0, "O");
-				CheckBoard(list, "O", p);
-			}
-				PlayerTurn = !PlayerTurn;
-				b1.setEnabled(false);
+			PlayerTurn = turn(0, PlayerTurn, b1, list);
 			}
 		});
 		JButton b2 = new JButton();
@@ -65,21 +52,7 @@ public class Board extends JFrame{
 		b2.setBackground(Color.white);
 		b2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b2.setBackground(Color.blue);
-					list.set(1, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b2.setBackground(Color.red);
-					list.set(1, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b2.setEnabled(false);
+				PlayerTurn = turn(1, PlayerTurn, b2, list);
 			}
 		});
 		JButton b3 = new JButton();
@@ -87,21 +60,7 @@ public class Board extends JFrame{
 		b3.setBackground(Color.white);
 		b3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b3.setBackground(Color.blue);
-					list.set(2, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b3.setBackground(Color.red);
-					list.set(2, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b3.setEnabled(false);
+				PlayerTurn = turn(2, PlayerTurn, b3, list);
 			}
 		});
 		JButton b4 = new JButton();
@@ -109,21 +68,7 @@ public class Board extends JFrame{
 		b4.setBackground(Color.white);
 		b4.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b4.setBackground(Color.blue);
-					list.set(3, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b4.setBackground(Color.red);
-					list.set(3, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b4.setEnabled(false);
+				PlayerTurn = turn(3, PlayerTurn, b4, list);
 			}
 		});
 		JButton b5 = new JButton();
@@ -131,21 +76,7 @@ public class Board extends JFrame{
 		b5.setBackground(Color.white);
 		b5.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b5.setBackground(Color.blue);
-					list.set(4, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b5.setBackground(Color.red);
-					list.set(4, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b5.setEnabled(false);
+				PlayerTurn = turn(4, PlayerTurn, b5, list);
 			}
 		});
 		JButton b6 = new JButton();
@@ -153,21 +84,7 @@ public class Board extends JFrame{
 		b6.setBackground(Color.white);
 		b6.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b6.setBackground(Color.blue);
-					list.set(5, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b6.setBackground(Color.red);
-					list.set(5, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b6.setEnabled(false);
+				PlayerTurn = turn(5, PlayerTurn, b6, list);
 			}
 		});
 		JButton b7 = new JButton();
@@ -175,21 +92,7 @@ public class Board extends JFrame{
 		b7.setBackground(Color.white);
 		b7.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b7.setBackground(Color.blue);
-					list.set(6, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b7.setBackground(Color.red);
-					list.set(6, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b7.setEnabled(false);
+				PlayerTurn = turn(6, PlayerTurn, b7, list);
 			}
 		});
 		JButton b8 = new JButton();
@@ -197,21 +100,7 @@ public class Board extends JFrame{
 		b8.setBackground(Color.white);
 		b8.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b8.setBackground(Color.blue);
-					list.set(7, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b8.setBackground(Color.red);
-					list.set(7, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b8.setEnabled(false);
+				PlayerTurn = turn(7, PlayerTurn, b8, list);
 			}
 		});
 		JButton b9 = new JButton();
@@ -219,21 +108,7 @@ public class Board extends JFrame{
 		b9.setBackground(Color.white);
 		b9.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (PlayerTurn)
-				{
-					b9.setBackground(Color.blue);
-					list.set(8, "X");
-					CheckBoard(list, "X", p);
-					
-				}	
-				else
-				{
-					b9.setBackground(Color.red);
-					list.set(8, "O");
-					CheckBoard(list, "O", p);
-				}
-				PlayerTurn = !PlayerTurn;
-				b9.setEnabled(false);
+				PlayerTurn = turn(8, PlayerTurn, b9, list);
 			}
 		});
 			
@@ -250,49 +125,111 @@ public class Board extends JFrame{
 						
 		
 		setVisible(true);
+		
+		buttonList.add(b1);
+		buttonList.add(b2);
+		buttonList.add(b3);
+		buttonList.add(b4);
+		buttonList.add(b5);
+		buttonList.add(b6);
+		buttonList.add(b7);
+		buttonList.add(b8);
+		buttonList.add(b9);
 	}
 	
-	public static void CheckBoard(LinkedList<String> board, String sign, JPanel panel)
+	public static void CheckBoard(LinkedList<String> board, LinkedList<JButton> list, String sign, boolean check)
 	{
 		if (board.get(0)== sign && board.get(1)== sign && board.get(2)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(3)== sign && board.get(4)== sign && board.get(5)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(6)== sign && board.get(7)== sign && board.get(8)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(0)== sign && board.get(3)== sign && board.get(6)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(1)== sign && board.get(4)== sign && board.get(7)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(2)== sign && board.get(5)== sign && board.get(8)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(0)== sign && board.get(4)== sign && board.get(8)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
 		}
 		else if (board.get(2)== sign && board.get(4)== sign && board.get(6)== sign)
 		{
-			panel.setEnabled(false);
-			System.out.println(sign + " win");
+			if(sign == "X")
+				System.out.println("BLUE WINS!");
+			else
+				System.out.println("RED WINS!");
+			ButtonShutDown(list);
+		}
+	}
+	
+	public static boolean turn(int BNumber, boolean pt, JButton b, LinkedList<String> l){
+		if(pt)
+		{
+			b.setBackground(Color.blue);
+			l.set(BNumber, "X");
+			CheckBoard(l, buttonList, "X", pt);
+		}
+		else
+		{
+			b.setBackground(Color.red);
+			l.set(BNumber, "O");
+			CheckBoard(l, buttonList, "O", pt);
+		}
+		
+		b.setEnabled(false);
+		
+		return !pt;
+	}
+	
+	public static void ButtonShutDown(LinkedList<JButton> list){
+		Iterator<JButton> it = list.iterator();
+		
+		while(it.hasNext())
+		{
+			it.next().setEnabled(false);
 		}
 	}
 }
