@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Board extends JFrame{
 	
 	public static LinkedList<String> list = new LinkedList<String>();
@@ -137,75 +138,75 @@ public class Board extends JFrame{
 		buttonList.add(b9);
 	}
 	
-	public static void CheckBoard(LinkedList<String> board, LinkedList<JButton> list, String sign, boolean check)
+	public void CheckBoard(LinkedList<String> board, LinkedList<JButton> list, String sign, boolean check)
 	{
 		if (board.get(0)== sign && board.get(1)== sign && board.get(2)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(3)== sign && board.get(4)== sign && board.get(5)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(6)== sign && board.get(7)== sign && board.get(8)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(0)== sign && board.get(3)== sign && board.get(6)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(1)== sign && board.get(4)== sign && board.get(7)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(2)== sign && board.get(5)== sign && board.get(8)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(0)== sign && board.get(4)== sign && board.get(8)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 		else if (board.get(2)== sign && board.get(4)== sign && board.get(6)== sign)
 		{
 			if(sign == "X")
-				System.out.println("BLUE WINS!");
+				setTitle("BLUE WINS!");
 			else
-				System.out.println("RED WINS!");
+				setTitle("RED WINS!");
 			ButtonShutDown(list);
 		}
 	}
 	
-	public static boolean turn(int BNumber, boolean pt, JButton b, LinkedList<String> l){
+	public boolean turn(int BNumber, boolean pt, JButton b, LinkedList<String> l){
 		if(pt)
 		{
 			b.setBackground(Color.blue);
@@ -231,5 +232,14 @@ public class Board extends JFrame{
 		{
 			it.next().setEnabled(false);
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		for (int i=0; i<9; i++){
+			list.add("0");
+		}
+
+		new Board();
 	}
 }
