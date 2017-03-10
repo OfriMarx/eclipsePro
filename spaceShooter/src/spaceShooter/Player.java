@@ -25,21 +25,21 @@ public class Player {
 	{
 		Graphics2D g2d = (Graphics2D)g;
 		
-		Rectangle2D body = new Rectangle2D.Double(x, y, 10*SIZE, 10*SIZE);
+		Rectangle2D body = new Rectangle2D.Double(x, y, 10*SIZE, 10*SIZE);	//creates a square
 		
-		g2d.setColor(color);
-		g2d.fill(body);
+		g2d.setColor(color);	//Sets the color
+		g2d.fill(body);			//Draws the square
 	}
 	
 	public void pressed(int key)
 	{
 		switch(key)
 		{
-		case KeyEvent.VK_LEFT:
-			direction = 'l';
+		case KeyEvent.VK_LEFT:	//When the pressed key is left arrow
+			direction = 'l';	//Sets the direction
 			break;
-		case KeyEvent.VK_RIGHT:
-			direction = 'r';
+		case KeyEvent.VK_RIGHT:	//When the pressed key is right arrow
+			direction = 'r';	//Sets the direction
 			break;
 		}
 	}
@@ -51,7 +51,7 @@ public class Player {
 	
 	public void move()
 	{
-		switch(direction)
+		switch(direction) //Changes the x according to the direction
 		{
 		case 'l':
 			x -= 2;
