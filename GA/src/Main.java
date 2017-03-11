@@ -2,28 +2,23 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import timeWizard.TimeMagic;
-
 public class Main {
 
 	public static void main(String[] args) {
-		TimeMagic tm = new TimeMagic("tm");
-		tm.startMagic();
-		
 		LinkedList<LinkedList<Integer>> solutions = new LinkedList<LinkedList<Integer>>(); 
 		LinkedList<Integer> bestSolution = new LinkedList<Integer>();
-		int answer = 50, sum = 0, gen = 1;
+		int answer = 1, sum = 0, gen = 1, maxNum = 10, numInList = 10;
 		boolean check = true;
 		
 		for(int i = 0; i<10; i++)
 		{
-			solutions.add(randomAnswer());
+			solutions.add(randomAnswer(maxNum+1, numInList));
 		}
 		
 		while(check)
 		{
 			System.out.println("gen " + gen);
-			solutions = evolution(solutions, answer);
+			solutions = evolution(solutions, answer, maxNum, numInList);
 			for (LinkedList<Integer> list: solutions)
 			{
 				sum = 0;
@@ -40,22 +35,20 @@ public class Main {
 		gen++;
 		}
 		System.out.println(bestSolution);
-		
-		tm.stopMagic();
 	}
 
 	
-	public static LinkedList<Integer> randomAnswer(){
+	public static LinkedList<Integer> randomAnswer(int maxNum, int numInList){
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		
-		for(int i = 0; i<8; i++){
-			list.add((int)(Math.random()*101));
+		for(int i = 0; i<numInList; i++){
+			list.add((int)(Math.random()*maxNum));
 		}
 		
 		return list;
 	}
 	
-	public static LinkedList<LinkedList<Integer>> evolution(LinkedList<LinkedList<Integer>> list, int answer){
+	public static LinkedList<LinkedList<Integer>> evolution(LinkedList<LinkedList<Integer>> list, int answer, int maxNum, int numInList){
 		int sum, chance, bestChance = 10000;
 		Map<Integer, LinkedList<Integer>> best = new HashMap<Integer, LinkedList<Integer>>();
 		LinkedList<LinkedList<Integer>> newList = new LinkedList<LinkedList<Integer>>();
@@ -91,25 +84,25 @@ public class Main {
 			best.remove(bestChance);
 			bestChance = 10000;
 			
-			newList.add(mix(temp, temp1));
+			newList.add(mix(temp, temp1, numInList));
 		}
 		
 		while(newList.size() < 10)
 		{
-			newList.add(randomAnswer());
+			newList.add(randomAnswer(maxNum+1, numInList));
 		}
 		
 		return newList;
 	}
 	
-	public static LinkedList<Integer> mix(LinkedList<Integer> list1, LinkedList<Integer> list2)
+	public static LinkedList<Integer> mix(LinkedList<Integer> list1, LinkedList<Integer> list2, int numInList)
 	{
 		LinkedList<Integer> newList = new LinkedList<Integer>();
 		
-		for(int i=0; i<4; i++)
+		for(int i=0; i<numInList/2; i++)
 			newList.add(list1.get(i));
 		
-		for(int i=4; i<8; i++)
+		for(int i=numInList/2; i<numInList; i++)
 			newList.add(list2.get(i));
 		
 		return newList;
