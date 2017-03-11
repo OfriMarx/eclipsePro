@@ -3,22 +3,23 @@ package spaceShooter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 
-public class Player {
+public class Space_Player {
 
 	private final int SIZE = 6;
 	
-	private int x, y;
+	private int x, y, right, left;
 	private char direction = ' ';
 	private Color color;
 	
-	public Player(int x, int y, Color c)
+	public Space_Player(int x, int y, int right, int left, Color c)
 	{
 		this.x = x;
 		this.y = y;
 		this.color = c;
+		this.right = right;
+		this.left = left;
 	}
 	
 	public void paintPlayer(Graphics g)
@@ -32,21 +33,17 @@ public class Player {
 	}
 	
 	public void pressed(int key)
-	{
-		switch(key)
-		{
-		case KeyEvent.VK_LEFT:	//When the pressed key is left arrow
-			direction = 'l';	//Sets the direction
-			break;
-		case KeyEvent.VK_RIGHT:	//When the pressed key is right arrow
-			direction = 'r';	//Sets the direction
-			break;
-		}
+	{	
+		if(key == right)//If right arrow is pressed
+			direction = 'r';
+		if(key == left)	//If left arrow is pressed
+			direction = 'l';
 	}
 	
-	public void released()
+	public void released(int key)
 	{
-		direction = ' ';
+		if(key == right || key == left)
+			direction = ' ';
 	}
 	
 	public void move()

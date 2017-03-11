@@ -11,22 +11,23 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 @SuppressWarnings("serial")
-public class Main_Panel extends JPanel{
+public class Space_Panel extends JPanel{
 
-	private Player p1, p2;
+	private Space_Player p1, p2;
 	private Timer gameTimer;
 	
-	public Main_Panel(Main_Frame frame)
+	public Space_Panel(Space_Frame frame)
 	{	
-		setBackground(Color.BLACK);								//Sets background to black
+		setBackground(Color.BLACK);				//Sets background to black
 		
-		frame.addKeyListener(new KeyAction());					//Adds to frame the key listeners
+		frame.addKeyListener(new KeyAction());	//Adds to frame the key listeners
 		
-		p1 = new Player(50, frame.getHeight()-130, Color.BLUE);	//Creates new player
-		p2 = new Player(50, 70, Color.red);						//Creates another player
+		/*Creates two players*/
+		p1 = new Space_Player(50, frame.getHeight()-130, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, Color.BLUE);
+		p2 = new Space_Player(50, 70, KeyEvent.VK_D, KeyEvent.VK_A, Color.red);
 		
-		gameTimer = new Timer(5, new TimerAction());			//Defines the timer with a 5 milliseconds delay and an action 
-		gameTimer.start();										//Starts the timer
+		gameTimer = new Timer(5, new TimerAction());//Defines the timer with a 5 milliseconds delay and an action 
+		gameTimer.start();							//Starts the timer
 	}
 	
 	@Override
@@ -49,8 +50,8 @@ public class Main_Panel extends JPanel{
 
 		@Override
 		public void keyReleased(KeyEvent e) {//When a key is released
-			p1.released();
-			p2.released();
+			p1.released(e.getKeyCode());
+			p2.released(e.getKeyCode());
 		}
 
 		@Override
