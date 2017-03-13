@@ -23,8 +23,8 @@ public class Space_Panel extends JPanel{
 		frame.addKeyListener(new KeyAction());	//Adds to frame the key listeners
 		
 		/*Creates two players*/
-		p1 = new Space_Player(50, frame.getHeight()-130, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, Color.BLUE, frame);
-		p2 = new Space_Player(50, 40, KeyEvent.VK_D, KeyEvent.VK_A, Color.red, frame);
+		p1 = new Space_Player(50, frame.getHeight()-130, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_L, Color.BLUE, frame);
+		p2 = new Space_Player(50, 40, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_G, Color.red, frame);
 		
 		gameTimer = new Timer(5, new TimerAction());//Defines the timer with a 5 milliseconds delay and an action 
 		gameTimer.start();							//Starts the timer
@@ -60,14 +60,19 @@ public class Space_Panel extends JPanel{
 		}
 	}
 	
+	public void updatePanel()
+	{
+		p1.updatePlayer();
+		p2.updatePlayer();
+		repaint(); //calls the paintComponent() method
+	}
+	
 	/*A class for the timer action*/
-	class TimerAction implements ActionListener{
+	private class TimerAction implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			p1.move();
-			p2.move();
-			repaint(); //calls the paintComponent() method
+			updatePanel();
 		}
 		
 	}
