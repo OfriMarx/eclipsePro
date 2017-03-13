@@ -18,8 +18,9 @@ public class Space_Player {
 	private Rectangle body;
 	private Polygon head;
 	private Space_Bullet b1;
+	private boolean active;
 	
-	public Space_Player(int x, int y, int right, int left, int fire, Color c, Space_Frame frame)
+	public Space_Player(int x, int y, int right, int left, int fire, Color c, Space_Panel panel, Space_Frame frame)
 	{
 		this.x = x;
 		this.y = y;
@@ -28,11 +29,12 @@ public class Space_Player {
 		this.left = left;
 		this.fire = fire;
 		this.frame = frame;
+		this.active = true;
 		
 		if(y > frame.getHeight()/2)//If the player is underneath the middle of the frame
-			b1 = new Space_Bullet(x, y, "up", SIZE);
+			b1 = new Space_Bullet(x, y, "up", SIZE, panel);
 		else
-			b1 = new Space_Bullet(x, y, "down", SIZE);
+			b1 = new Space_Bullet(x, y, "down", SIZE, panel);
 	}
 	
 	public void paintPlayer(Graphics g)
@@ -61,7 +63,7 @@ public class Space_Player {
 		g2d.fill(body);			//Draws the square
 		g2d.fill(head); 		//Draws the shape
 		
-		if(b1.isActive())
+		if(b1.isActive() && active)
 			b1.paintBullet(g);
 	}
 	
@@ -101,5 +103,20 @@ public class Space_Player {
 		
 		if(b1.isActive())
 			b1.bulletUpdate();
+	}
+	
+	public Rectangle getBounds()
+	{
+		return body.getBounds();
+	}
+	
+	public void deactivate()
+	{
+		this.active = false;
+	}
+	
+	public boolean isActive()
+	{
+		return active;
 	}
 }
