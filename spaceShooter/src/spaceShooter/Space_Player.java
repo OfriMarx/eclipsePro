@@ -73,7 +73,7 @@ public class Space_Player {
 			direction = 'r';
 		if(key == left)	//If left movement button is pressed
 			direction = 'l';
-		if(key == fire)
+		if(key == fire && !b1.isActive())
 		{
 			b1.setX(x);
 			b1.setY(y);

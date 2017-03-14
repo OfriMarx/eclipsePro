@@ -51,6 +51,11 @@ public class Space_Bullet {
 		else if(d == "down" && bullet.intersects(panel.getPlayer("p1").getBounds()))
 			panel.getPlayer("p1").deactivate();
 		
+		
+		if(y > panel.getHeight() || y < 0)//If the bullet gets out of the screen
+		{
+			this.active = false;
+		}
 	}
 	
 	public void activated()
