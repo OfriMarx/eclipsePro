@@ -48,12 +48,13 @@ public class Space_Bullet {
 		
 		if(d == "up" && bullet.intersects(panel.getPlayer("p2").getBounds()))
 		{
-			panel.getPlayer("p2").deactivate();
+			panel.getPlayer("p2").damageHealth();
+			
 			this.active = false;
 		}	
 		else if(d == "down" && bullet.intersects(panel.getPlayer("p1").getBounds()))
 		{
-			panel.getPlayer("p1").deactivate();
+			panel.getPlayer("p1").damageHealth();
 			this.active = false;
 		}
 			

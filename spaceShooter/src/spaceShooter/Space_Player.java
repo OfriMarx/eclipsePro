@@ -11,6 +11,7 @@ public class Space_Player {
 
 	private final int SIZE = 6;
 	
+	private Space_Panel panel;
 	private Space_Frame frame;
 	private int x, y, right, left, fire, health;
 	private int[] xarr, yarr;
@@ -20,7 +21,6 @@ public class Space_Player {
 	private Polygon head;
 	private Space_Bullet b1;
 	private boolean active;
-	private GradientPaint healthBarPaint;
 	
 	public Space_Player(int x, int y, int right, int left, int fire, Color c, Space_Panel panel, Space_Frame frame)
 	{
@@ -30,6 +30,7 @@ public class Space_Player {
 		this.right = right;
 		this.left = left;
 		this.fire = fire;
+		this.panel = panel;
 		this.frame = frame;
 		this.active = true;
 		this.health = 2;
@@ -42,8 +43,6 @@ public class Space_Player {
 	
 	public void paintPlayer(Graphics g)
 	{
-		
-		System.out.println("shi");
 		Graphics2D g2d = (Graphics2D)g;
 		
 		
@@ -69,12 +68,11 @@ public class Space_Player {
 		g2d.fill(head); 		//Draws the shape
 		
 		healthBar = new Rectangle(x-20, y, 10, 10*SIZE);
-		g2d.setColor(Color.GREEN.darker());
+		g2d.setPaint(setHealthColor());
 		g2d.fill(healthBar);
 		
 		if(b1.isActive() && active)
 			b1.paintBullet(g);
-		System.out.println("gi");
 	}
 	
 	public void pressed(int key)
@@ -101,8 +99,6 @@ public class Space_Player {
 	
 	public void updatePlayer()
 	{
-		System.out.println("hi");
-		
 		switch(direction) //Changes the x according to the direction
 		{
 		case 'l':
@@ -115,13 +111,28 @@ public class Space_Player {
 		
 		if(b1.isActive())
 			b1.bulletUpdate();
-		
-		System.out.println("bi");
 	}
 	
 	public void damageHealth()
 	{
 		health -= 1;
+		if(health == 0)
+		{
+			panel.repaint();
+			this.active = false;
+		}
+	}
+	
+	public GradientPaint setHealthColor()
+	{
+		GradientPaint gp = null;
+		if(health == 2)
+			gp = new GradientPaint(x-20, y+5*SIZE, Color.GREEN.darker(), x-20, y+5*SIZE+1, Color.GREEN.darker());
+		else if(health == 1)
+			gp = new GradientPaint(x-20, y+5*SIZE, Color.GREEN.darker(), x-20, y+5*SIZE+1, Color.RED);
+		else
+			gp = new GradientPaint(x-20, y+5*SIZE, Color.RED, x-20, y+5*SIZE+1, Color.RED);
+		return gp;
 	}
 	
 	public Rectangle getBounds()
