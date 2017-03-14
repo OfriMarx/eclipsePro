@@ -36,22 +36,27 @@ public class Space_Bullet {
 		g2d.draw(bullet);
 	}
 	
-	/*Changes the position of the bullet*/
+	/*Updates*/
 	public void bulletUpdate()
 	{
 		if(d == "up")
-			y -= 2;
+			y -= 3;
 		else
-			y += 2;
+			y += 3;
 		
 		bullet = new Ellipse2D.Double(x, y, 10, 10);
 		
 		if(d == "up" && bullet.intersects(panel.getPlayer("p2").getBounds()))
+		{
 			panel.getPlayer("p2").deactivate();
+			this.active = false;
+		}	
 		else if(d == "down" && bullet.intersects(panel.getPlayer("p1").getBounds()))
+		{
 			panel.getPlayer("p1").deactivate();
-		
-		
+			this.active = false;
+		}
+			
 		if(y > panel.getHeight() || y < 0)//If the bullet gets out of the screen
 		{
 			this.active = false;

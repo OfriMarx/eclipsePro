@@ -9,7 +9,7 @@ public class Space_Frame extends JFrame{
 
 	Space_Frame()
 	{
-		setTitle("spaze");								//Sets the title of frame
+		setTitle("Spaz");								//Sets the title of frame
 		setResizable(false);							//Makes the frame unresizable
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Sets the close operation to terminate the program
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());//Sets the frame's size to screen size
