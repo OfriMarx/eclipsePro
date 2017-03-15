@@ -36,14 +36,14 @@ public class Space_Panel extends JPanel{
 		InputMap im = this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap am = this.getActionMap();
 		
-		im.put(KeyStroke.getKeyStroke("RIGHT"), "rightPressed");
+		/*im.put(KeyStroke.getKeyStroke("RIGHT"), "rightPressed");
 		am.put("rightPressed", new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				p1.pressed(KeyEvent.VK_RIGHT);
 			}
 			
-		});
+		});*/
 	}
 	
 	@Override
