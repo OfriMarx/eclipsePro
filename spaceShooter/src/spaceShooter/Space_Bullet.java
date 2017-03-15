@@ -23,7 +23,7 @@ public class Space_Bullet {
 			this.y = y - 7*size;//y - the size of the head
 		else
 			this.y = y + 7*size + 10*size;//y + the size of head + body
-		active = false;
+		active = true;
 	}
 	
 	/*Paints the bullet*/
@@ -49,7 +49,6 @@ public class Space_Bullet {
 		if(d == "up" && bullet.intersects(panel.getPlayer("p2").getBounds()))
 		{
 			panel.getPlayer("p2").damageHealth();
-			
 			this.active = false;
 		}	
 		else if(d == "down" && bullet.intersects(panel.getPlayer("p1").getBounds()))

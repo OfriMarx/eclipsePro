@@ -6,23 +6,30 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.Timer;
 
 public class Space_Player {
 
 	private final int SIZE = 6;
 	
+	private ArrayList<Space_Bullet> cartridge = new ArrayList<Space_Bullet>();
 	private Space_Panel panel;
 	private Space_Frame frame;
-	private int x, y, right, left, fire, health;
+	private int x, y, right, left, fire, health, bulletNum;
 	private int[] xarr, yarr;
 	private char direction = ' ';
 	private Color color;
-	private Rectangle body, healthBar;
+	private Rectangle body, healthBar, bulletBar;
 	private Polygon head;
-	private Space_Bullet b1;
-	private boolean active;
+	private boolean active, stuck;
+	private String bd;
+	private Timer decreaseBullet = new Timer(60, new TimerAction());
 	
-	public Space_Player(int x, int y, int right, int left, int fire, Color c, Space_Panel panel, Space_Frame frame)
+	public Space_Player(int x, int y, int right, int left, int fire, Color c, String bulletDirection, Space_Panel panel, Space_Frame frame)
 	{
 		this.x = x;
 		this.y = y;
@@ -33,12 +40,12 @@ public class Space_Player {
 		this.panel = panel;
 		this.frame = frame;
 		this.active = true;
+		this.stuck = false;
 		this.health = 2;
+		this.bd = bulletDirection;
+		this.bulletNum = 0;
 		
-		if(y > frame.getHeight()/2)//If the player is underneath the middle of the frame
-			b1 = new Space_Bullet(x, y, "up", SIZE, panel);
-		else
-			b1 = new Space_Bullet(x, y, "down", SIZE, panel);
+		decreaseBullet.start();
 	}
 	
 	public void paintPlayer(Graphics g)
@@ -71,8 +78,20 @@ public class Space_Player {
 		g2d.setPaint(setHealthColor());
 		g2d.fill(healthBar);
 		
-		if(b1.isActive() && active)
-			b1.paintBullet(g);
+		bulletBar = new Rectangle(x-30, y, 10, 10*SIZE);
+		g2d.setPaint(setBulletColor());
+		g2d.fill(bulletBar);
+		
+		if(!cartridge.isEmpty())
+		{
+			for(int i=0; i<cartridge.size(); i++)
+			{
+				if(cartridge.get(i).isActive())
+					cartridge.get(i).paintBullet(g);
+				else
+					cartridge.remove(i);
+			}
+		}
 	}
 	
 	public void pressed(int key)
@@ -81,11 +100,10 @@ public class Space_Player {
 			direction = 'r';
 		if(key == left)	//If left movement button is pressed
 			direction = 'l';
-		if(key == fire && !b1.isActive())
+		if(key == fire && !stuck)
 		{
-			b1.setX(x);
-			b1.setY(y);
-			b1.activated();
+			cartridge.add(new Space_Bullet(x, y, bd, SIZE, panel));
+			bulletNum += 50;
 		}
 			
 			
@@ -108,9 +126,13 @@ public class Space_Player {
 			x += 2;
 			break;
 		}
-		
-		if(b1.isActive())
-			b1.bulletUpdate();
+
+		if(!cartridge.isEmpty())
+		{
+			for(Space_Bullet b:cartridge)
+				b.bulletUpdate();
+		}
+			
 	}
 	
 	public void damageHealth()
@@ -120,6 +142,7 @@ public class Space_Player {
 		{
 			panel.repaint();
 			this.active = false;
+			decreaseBullet.stop();
 		}
 	}
 	
@@ -132,6 +155,12 @@ public class Space_Player {
 			gp = new GradientPaint(x-20, y+5*SIZE, Color.GREEN.darker(), x-20, y+5*SIZE+1, Color.RED);
 		else
 			gp = new GradientPaint(x-20, y+5*SIZE, Color.RED, x-20, y+5*SIZE+1, Color.RED);
+		return gp;
+	}
+	
+	public GradientPaint setBulletColor()
+	{
+		GradientPaint gp = new GradientPaint(x-30, y+10*SIZE-1-(bulletNum*SIZE/10), panel.getBackground(), x-30, y+10*SIZE-(bulletNum*SIZE/10), Color.ORANGE);
 		return gp;
 	}
 	
@@ -148,5 +177,23 @@ public class Space_Player {
 	public boolean isActive()
 	{
 		return active;
+	}
+	
+	private class TimerAction implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(bulletNum > 0)
+				bulletNum -= 3;
+			if(bulletNum < 100)
+				stuck = false;
+			if(bulletNum >= 100 && !stuck)
+			{
+				bulletNum = 180;
+				stuck = true;
+			}
+				
+		}
+		
 	}
 }
