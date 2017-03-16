@@ -103,7 +103,7 @@ public class Space_Player {
 		if(key == fire && !stuck)
 		{
 			cartridge.add(new Space_Bullet(x, y, bd, SIZE, panel));
-			bulletNum += 50;
+			bulletNum += 30;
 		}
 			
 			
