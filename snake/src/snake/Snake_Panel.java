@@ -23,7 +23,7 @@ public class Snake_Panel extends JPanel{
 	private int score = 0, size = 10;
 	private Snake_Frame frame;
 	
-	private Timer panelTimer = new Timer(50, new TimerAction());
+	private Timer panelTimer = new Timer(40, new TimerAction());
 	
 	public Snake_Panel(Snake_Frame frame)
 	{
