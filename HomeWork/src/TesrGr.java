@@ -6,12 +6,11 @@ public class TesrGr {
 	Square  b=new Square(160,160,40,"green");
 	//b.changeColor("magenta");
 	b.draw();
-	Triangle r = new Triangle(180,140,40,20, "red");
+	Triangle r = new Triangle(Canvas.getCanvas().getSize().width/2,140,40,20, "red");
 	r.draw();
 	Circle c= new Circle(250,20,100,"yellow");
 	c.draw();
 	c.erase();
-	c=new Circle(230,20,100,"yellow");
 	c.draw();
 	c.erase();
 	c=new Circle(210,20,100,"yellow");
