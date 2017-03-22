@@ -46,12 +46,12 @@ public class Space_Bullet {
 		
 		bullet = new Ellipse2D.Double(x, y, 10, 10);
 		
-		if(d == "up" && bullet.intersects(panel.getPlayer("p2").getBounds()))
+		if(d == "up" && bullet.intersects(panel.getPlayer("p2").getBounds()) && !panel.getPlayer("p2").isInvincible())
 		{
 			panel.getPlayer("p2").damageHealth();
 			this.active = false;
 		}	
-		else if(d == "down" && bullet.intersects(panel.getPlayer("p1").getBounds()))
+		else if(d == "down" && bullet.intersects(panel.getPlayer("p1").getBounds()) && panel.getPlayer("p1").isInvincible())
 		{
 			panel.getPlayer("p1").damageHealth();
 			this.active = false;

@@ -22,6 +22,7 @@ public class Snake_Panel extends JPanel{
 	private Snake_Apple apple;
 	private int score = 0, size = 10;
 	private Snake_Frame frame;
+	private boolean updated;
 	
 	private Timer panelTimer = new Timer(40, new TimerAction());
 	
@@ -29,6 +30,7 @@ public class Snake_Panel extends JPanel{
 	{
 		setBackground(Color.WHITE);
 		this.frame = frame;
+		this.updated = false;
 		
 		for(int i=0; i<3; i++)
 		{
@@ -49,8 +51,11 @@ public class Snake_Panel extends JPanel{
 		am.put("right", new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(rect1.getDirection() != 'l')
+				if(rect1.getDirection() != 'l' && updated)
+				{
 					rect1.setDirection('r');
+					updated = false;
+				}	
 			}
 		});
 		
@@ -58,8 +63,12 @@ public class Snake_Panel extends JPanel{
 		am.put("left", new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(rect1.getDirection() != 'r')
+				if(rect1.getDirection() != 'r' && updated)
+				{
 					rect1.setDirection('l');
+					updated = false;
+				}
+					
 			}
 		});
 		
@@ -67,8 +76,11 @@ public class Snake_Panel extends JPanel{
 		am.put("up", new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(rect1.getDirection() != 'd')
+				if(rect1.getDirection() != 'd' && updated)
+				{
 					rect1.setDirection('u');
+					updated = false;
+				}		
 			}
 		});
 		
@@ -76,8 +88,12 @@ public class Snake_Panel extends JPanel{
 		am.put("down", new AbstractAction(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(rect1.getDirection() != 'u')
+				if(rect1.getDirection() != 'u' && updated)
+				{
 					rect1.setDirection('d');
+					updated = false;
+				}
+					
 			}
 		});
 	
@@ -100,6 +116,7 @@ public class Snake_Panel extends JPanel{
 		g.setFont(font);
 		g.setColor(Color.BLUE);
 		g.drawString(str, frame.getWidth()/2 - g.getFontMetrics(font).stringWidth(str)/2,  25);
+		updated = true;
 	}
 	
 	public void updatePanel()

@@ -25,7 +25,7 @@ public class Space_Player {
 	private Color color;
 	private Rectangle body, healthBar, bulletBar;
 	private Polygon head;
-	private boolean active, stuck;
+	private boolean active, stuck, invincible;
 	private String bd;
 	private Timer decreaseBullet = new Timer(60, new TimerAction());
 	
@@ -41,6 +41,7 @@ public class Space_Player {
 		this.frame = frame;
 		this.active = true;
 		this.stuck = false;
+		this.invincible = false;
 		this.health = 2;
 		this.bd = bulletDirection;
 		this.bulletNum = 0;
@@ -179,6 +180,22 @@ public class Space_Player {
 		return active;
 	}
 	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setInvincible(boolean invincible) {
+		this.invincible = invincible;
+	}
+
+	public boolean isInvincible() {
+		return invincible;
+	}
+
 	private class TimerAction implements ActionListener{
 
 		@Override
