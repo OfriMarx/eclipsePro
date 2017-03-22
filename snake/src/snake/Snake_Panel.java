@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
@@ -43,6 +44,19 @@ public class Snake_Panel extends JPanel{
 		rect1 = rectList.get(0);
 		
 		apple = newApple();
+		
+		JButton reset = new JButton("reset");
+		reset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Snake_Frame();
+				frame.dispose();
+			}
+		});
+		reset.setBackground(Color.GREEN);
+		reset.setFont(new Font("AR CHRISTY", Font.PLAIN, 15));
+		reset.setForeground(Color.RED);
+		this.add(reset);
 		
 		InputMap im = this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap am = this.getActionMap();
@@ -115,7 +129,7 @@ public class Snake_Panel extends JPanel{
 		
 		g.setFont(font);
 		g.setColor(Color.BLUE);
-		g.drawString(str, frame.getWidth()/2 - g.getFontMetrics(font).stringWidth(str)/2,  25);
+		g.drawString(str, frame.getWidth()/2 - g.getFontMetrics(font).stringWidth(str)/2,  frame.getHeight()-40);
 		updated = true;
 	}
 	
