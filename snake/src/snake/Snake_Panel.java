@@ -49,8 +49,17 @@ public class Snake_Panel extends JPanel{
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Snake_Frame();
-				frame.dispose();
+				if(rectList.size() == 3)
+					rectList.add(null);
+				while(rectList.size() > 3)
+				{
+					rect1.setX(0);
+					rect1.setY(0);
+					rect1.setDirection('r');
+					rectList.remove(rectList.size()-1);
+					rect1.setActive(true);
+					score = 0;
+				}
 			}
 		});
 		reset.setBackground(Color.GREEN);
@@ -138,19 +147,19 @@ public class Snake_Panel extends JPanel{
 		for(int i=rectList.size()-1; i>=0; i--)
 			rectList.get(i).RectUpdate();
 		
-		if(rectList.get(0).getBounds().intersects(apple.getBounds()))
+		if(rect1.getBounds().intersects(apple.getBounds()))
 		{
 			apple = newApple();
 			rectList.add(new Snake_Rect(rectList.get(rectList.size()-1).getX(), rectList.get(rectList.size()-1).getY(), size, rectList.get(rectList.size()-1)));
 			score ++;
 		}
 		
-		if(rectList.get(0).getX() > 590 || rectList.get(0).getY() > 560 || rectList.get(0).getX() < 0 || rectList.get(0).getY() < 0)
-			rectList.get(0).setActive(false);
+		if(rect1.getX() > 590 || rect1.getY() > 560 || rect1.getX() < 0 || rect1.getY() < 0)
+			rect1.setActive(false);
 		
 		for(int i=1; i<rectList.size()-1; i++)
-			if(rectList.get(0).getBounds().intersects(rectList.get(i).getBounds()))
-				rectList.get(0).setActive(false);
+			if(rect1.getBounds().intersects(rectList.get(i).getBounds()))
+				rect1.setActive(false);
 		
 		repaint();
 	}
@@ -167,10 +176,8 @@ public class Snake_Panel extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if(rectList.get(0).isActive())
+			if(rect1.isActive())
 				updatePanel();
-			else
-				panelTimer.stop();
 		}
 	}
 }
