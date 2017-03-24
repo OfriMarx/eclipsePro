@@ -1,4 +1,4 @@
-package battleShips;
+package ticTacToe;
 
 public class P1 {
 	private int row;

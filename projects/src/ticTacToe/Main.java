@@ -1,4 +1,4 @@
-package battleShips;
+package ticTacToe;
 import java.util.*;
 
 public class Main {
