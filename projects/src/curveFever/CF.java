@@ -1,5 +1,7 @@
 package curveFever;
 
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -10,16 +12,16 @@ public class CF extends JFrame{
 		setTitle("Curvez");						
 		setResizable(false);					
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600,600);					
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());				
 		setLocationRelativeTo(null);
 		setVisible(true);			
 				
-		validate();
+		CF_Panel panel = new CF_Panel(this);
+		add(panel);
 	}
 	
 	public static void main(String[] args) {
 		new CF();
-
 	}
 
 }

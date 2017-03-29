@@ -65,5 +65,20 @@ public class Targil1 {
 		c18.erase();
 		Circle c19 = new Circle(228,34,10,"black");
 		c19.draw();
+		
+		t.erase();
+		for(int i=200; i<=250; i+=5)
+		{
+			Triangle t1 = new Triangle(i, 80, 20, 20, "red");
+			t1.draw();
+			t1.erase();
+		}
+		for(int i=250; i>=200; i-=5)
+		{
+			Triangle t1 = new Triangle(i, 80, 20, 20, "red");
+			t1.draw();
+			t1.erase();
+		}
+		t.draw();
 	}
 }
