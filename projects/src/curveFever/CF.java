@@ -18,6 +18,8 @@ public class CF extends JFrame{
 				
 		CF_Panel panel = new CF_Panel(this);
 		add(panel);
+		
+		validate();
 	}
 	
 	public static void main(String[] args) {
