@@ -11,6 +11,7 @@ public class CurvePlayer {
 	private final int PSIZE = 5;
 	
 	public double xVelocity, yVelocity, angle;
+	public boolean active;
 	
 	private ArrayList<Rectangle2D> points = new ArrayList<>();
 	private double x, y;
@@ -30,6 +31,7 @@ public class CurvePlayer {
 		this.right = right;
 		this.left = left;
 		this.direction = ' ';
+		this.active = true;
 		
 		points.add(addPoint(x, y));
 		
@@ -77,5 +79,15 @@ public class CurvePlayer {
 
 	public void setDirection(char direction) {
 		this.direction = direction;
+	}
+	
+	public ArrayList<Rectangle2D> getPoints()
+	{
+		return points;
+	}
+	
+	public Rectangle2D getHead()
+	{
+		return points.get(points.size()-1);
 	}
 }
