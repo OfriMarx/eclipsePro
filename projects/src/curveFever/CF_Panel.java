@@ -27,9 +27,9 @@ public class CF_Panel extends JPanel{
 		setBackground(Color.BLACK);
 		this.frame = frame;
 		
-		p1 = new CurvePlayer(77,77, Color.red, right1, left1);
+		p1 = new CurvePlayer(77,77, Color.red, right1, left1, 0);
 		setBindings(p1, "p1");
-		p2 = new CurvePlayer(576,432, Color.blue, right2, left2);
+		p2 = new CurvePlayer(576,432, Color.blue, right2, left2, 0);
 		setBindings(p2, "p2");
 		
 		this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "close");
@@ -114,9 +114,9 @@ public class CF_Panel extends JPanel{
 				p2.active = false;
 			
 			
-			for(Rectangle2D p :p1.getPoints())
+			for(int i=0; i<p1.getPoints().size(); i++)
 			{
-				if(p2.getHead().intersects(p))
+				if(p2.getHead().intersects(p1.getPoints().get(i)))
 					p2.active = false;
 			}
 			

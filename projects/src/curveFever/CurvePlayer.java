@@ -20,21 +20,20 @@ public class CurvePlayer {
 	private String right, left;
 	private char direction;
 	
-	public CurvePlayer(double x, double y, Color color, String right, String left)
+	public CurvePlayer(double x, double y, Color color, String right, String left, double startAngle)
 	{
 		this.x = x;
 		this.y = y;
 		this.c = color;
 		this.xVelocity = 0.5;
 		this.yVelocity = 0;
-		this.angle = 0;
+		this.angle = startAngle;
 		this.right = right;
 		this.left = left;
 		this.direction = ' ';
 		this.active = true;
 		
-		points.add(addPoint(x, y));
-		
+		points.add(addPoint(x, y));	
 	}
 	
 	public Rectangle2D addPoint(double x, double y)
