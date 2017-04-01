@@ -38,7 +38,7 @@ public class CurvePlayer {
 	
 	public Rectangle2D addPoint(double x, double y)
 	{
-		point = new Rectangle2D.Double(x, y, PSIZE, PSIZE);
+		point = new Rectangle2D.Double(x, y, 2, PSIZE);
 		return point;
 	}
 	
@@ -56,12 +56,12 @@ public class CurvePlayer {
 	public void updatePlayer()
 	{
 		if(direction == 'r')
-			angle += 0.01;
+			angle += 0.03;
 		else if(direction == 'l')
-			angle -= 0.01;
+			angle -= 0.03;
 		
-		xVelocity = Math.cos(angle)/2;
-		yVelocity = Math.sin(angle)/2;
+		xVelocity = Math.cos(angle)*1.5;
+		yVelocity = Math.sin(angle)*1.5;
 		
 		x += xVelocity;
 		y += yVelocity;
