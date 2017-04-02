@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -28,7 +29,7 @@ public class CF_Panel extends JPanel{
 		
 		p1 = new CurvePlayer(15,77, Color.red, right1, left1, 0);
 		setBindings(p1, "p1");
-		p2 = new CurvePlayer(77,90, Color.blue, right2, left2, 0);
+		p2 = new CurvePlayer(77,500, Color.blue, right2, left2, 0);
 		setBindings(p2, "p2");
 		
 		this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "close");
@@ -107,25 +108,29 @@ public class CF_Panel extends JPanel{
 			if(p2.active)
 				p2.updatePlayer();
 			
-			if(p1.getHead().getX() > frame.getWidth() || p1.getHead().getY() > frame.getHeight() || p1.getHead().getY() < 0 || p1.getHead().getX() < 0)
+			double p1x = p1.getHead().getX(), p1y =  p1.getHead().getY();
+			double p2x = p2.getHead().getX(), p2y =  p2.getHead().getY();
+			Rectangle2D p1h = p1.getHead(), p2h = p2.getHead();
+			
+			if(p1x > frame.getWidth() || p1y > frame.getHeight() || p1y < 0 || p1x < 0)
 				p1.active = false;
-			if(p2.getHead().getX() > frame.getWidth() || p2.getHead().getY() > frame.getHeight() || p2.getHead().getY() < 0 || p2.getHead().getX() < 0)
+			if(p2x > frame.getWidth() || p2y > frame.getHeight() || p2y < 0 || p2x < 0)
 				p2.active = false;
 			
 			
 			for(int i=0; i<p1.getPoints().size(); i++)
 			{
-				if(p2.getHead().intersects(p1.getPoints().get(i)))
+				if(p2h.intersects(p1.getPoints().get(i)))
 					p2.active = false;
-				if(i < p1.getPoints().size()-10 && p1.getHead().intersects(p1.getPoints().get(i)))
+				if(i < p1.getPoints().size()-10 && p1h.intersects(p1.getPoints().get(i)))
 					p1.active = false;
 			}
 			
 			for(int i=0; i<p2.getPoints().size(); i++)
 			{
-				if(p1.getHead().intersects(p2.getPoints().get(i)))
+				if(p1h.intersects(p2.getPoints().get(i)))
 					p1.active = false;
-				if(i < p2.getPoints().size()-10 && p2.getHead().intersects(p2.getPoints().get(i)))
+				if(i < p2.getPoints().size()-10 && p2h.intersects(p2.getPoints().get(i)))
 					p2.active = false;
 			}
 			

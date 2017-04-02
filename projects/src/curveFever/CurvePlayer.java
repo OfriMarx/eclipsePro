@@ -56,12 +56,12 @@ public class CurvePlayer {
 	public void updatePlayer()
 	{
 		if(direction == 'r')
-			angle += 0.03;
+			angle += 0.02;
 		else if(direction == 'l')
-			angle -= 0.03;
+			angle -= 0.02;
 		
-		xVelocity = Math.cos(angle)*1.5;
-		yVelocity = Math.sin(angle)*1.5;
+		xVelocity = Math.cos(angle);
+		yVelocity = Math.sin(angle);
 		
 		x += xVelocity;
 		y += yVelocity;
