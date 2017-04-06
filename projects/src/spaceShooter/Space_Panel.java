@@ -14,7 +14,7 @@ import javax.swing.Timer;
 public class Space_Panel extends JPanel{
 
 	private Space_Player p1, p2;
-	private PowerUp shield;
+	//private PowerUp shield;
 	private Timer gameTimer;
 	
 	public Space_Panel(Space_Frame frame)
@@ -26,7 +26,7 @@ public class Space_Panel extends JPanel{
 		/*Creates two players*/
 		p1 = new Space_Player(50, frame.getHeight()-130, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT, KeyEvent.VK_L, Color.BLUE, "up", this, frame);
 		p2 = new Space_Player(50, 40, KeyEvent.VK_D, KeyEvent.VK_A, KeyEvent.VK_G, Color.red, "down", this, frame);
-		shield = new PowerUp(p2);
+		//shield = new PowerUp(p2);
 		
 		gameTimer = new Timer(5, new TimerAction());//Defines the timer with a 5 milliseconds delay and an action 
 		gameTimer.start();	//Starts the timer
