@@ -73,7 +73,8 @@ public class CF_Panel extends JPanel{
 				{
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						p.setDirection(' ');
+						if(p.getDirection() == 'r')
+							p.setDirection(' ');
 					}
 				}
 		);
@@ -83,7 +84,7 @@ public class CF_Panel extends JPanel{
 				{
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						p.setDirection('l');;
+						p.setDirection('l');
 					}
 				}
 		);
@@ -93,7 +94,8 @@ public class CF_Panel extends JPanel{
 				{
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						p.setDirection(' ');;
+						if(p.getDirection() == 'l')
+							p.setDirection(' ');
 					}
 				}
 		);
@@ -104,7 +106,7 @@ public class CF_Panel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if(p1.active)
-				p1.updatePlayer();
+				System.out.print(" ");
 			if(p2.active)
 				p2.updatePlayer();
 			

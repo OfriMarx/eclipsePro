@@ -80,6 +80,10 @@ public class CurvePlayer {
 		this.direction = direction;
 	}
 	
+	public char getDirection() {
+		return direction;
+	}
+
 	public ArrayList<Rectangle2D> getPoints()
 	{
 		return points;
