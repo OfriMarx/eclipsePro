@@ -106,7 +106,7 @@ public class CF_Panel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if(p1.active)
-				System.out.print(" ");
+				p1.updatePlayer();
 			if(p2.active)
 				p2.updatePlayer();
 			
