@@ -29,6 +29,7 @@ public class CF_StartPanel extends JPanel{
 		JLabel p2 = new JLabel("p2", JLabel.CENTER);
 		p2.setForeground(Color.blue);
 		p2.setFont(new Font("a", Font.BOLD, 35));
+		JLabel blank = new JLabel();
 		
 		JButton p1l = new JButton(); 
 		p1l.setForeground(Color.red);
@@ -65,7 +66,7 @@ public class CF_StartPanel extends JPanel{
 						selectedButton.setBackground(Color.black);
 					
 					selectedButton = p1r;
-					p1r.setBackground(Color.RED);
+					p1r.setBackground(Color.red);
 				}
 				else
 				{
@@ -88,7 +89,7 @@ public class CF_StartPanel extends JPanel{
 						selectedButton.setBackground(Color.black);
 					
 					selectedButton = p2l;
-					p2l.setBackground(Color.RED);
+					p2l.setBackground(Color.blue);
 				}
 				else
 				{
@@ -111,7 +112,7 @@ public class CF_StartPanel extends JPanel{
 						selectedButton.setBackground(Color.black);
 					
 					selectedButton = p2r;
-					p2r.setBackground(Color.RED);
+					p2r.setBackground(Color.blue);
 				}
 				else
 				{
@@ -123,6 +124,8 @@ public class CF_StartPanel extends JPanel{
 		});
 		
 		JButton start = new JButton("start");
+		start.setBackground(Color.yellow);
+		start.setFont(new Font("a", Font.BOLD, 30));
 		start.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -139,6 +142,7 @@ public class CF_StartPanel extends JPanel{
 		add(p2);
 		add(p2l);
 		add(p2r);
+		add(blank);
 		add(start);
 		frame.addKeyListener(new KeyAction());
 	}

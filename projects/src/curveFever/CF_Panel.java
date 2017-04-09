@@ -1,6 +1,7 @@
 package curveFever;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public class CF_Panel extends JPanel{
 	private Timer update = new Timer(5, new TimerAction());
 	private CurvePlayer p1, p2;
 	private CF frame;
+	private int alive = 0;
 	
 	public CF_Panel(CF frame, String left1, String right1, String left2, String right2)
 	{
@@ -29,8 +31,10 @@ public class CF_Panel extends JPanel{
 		
 		p1 = new CurvePlayer(15,77, Color.red, right1, left1, 0);
 		setBindings(p1, "p1");
+		alive ++;
 		p2 = new CurvePlayer(77,500, Color.blue, right2, left2, 0);
 		setBindings(p2, "p2");
+		alive ++;
 		
 		this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "close");
 		this.getActionMap().put("close", new AbstractAction() {
@@ -51,6 +55,27 @@ public class CF_Panel extends JPanel{
 		
 		p1.drawPlayer(g);
 		p2.drawPlayer(g);
+		
+		if(alive < 2)
+		{
+			Font stringFont = new Font("a", Font.BOLD, 35);
+			String s = "P1 WINS!";
+			int sx = frame.getWidth() / 2 - g.getFontMetrics(stringFont).stringWidth(s) / 2;
+			int sy = frame.getHeight()/2;
+			if(p1.active)
+			{
+				g.setColor(Color.RED);
+				g.setFont(stringFont);
+				g.drawString(s, sx, sy);
+			}
+			else if(p2.active)
+			{
+				s = "P2 WINS!";
+				g.setColor(Color.blue);
+				g.setFont(stringFont);
+				g.drawString(s, sx, sy);
+			}
+		}
 	}
 	
 	public void setBindings(CurvePlayer p, String name)
@@ -114,26 +139,48 @@ public class CF_Panel extends JPanel{
 			double p2x = p2.getHead().getX(), p2y =  p2.getHead().getY();
 			Rectangle2D p1h = p1.getHead(), p2h = p2.getHead();
 			
-			if(p1x > frame.getWidth() || p1y > frame.getHeight() || p1y < 0 || p1x < 0)
+			if(p1x > frame.getWidth() || p1y > frame.getHeight() || p1y < 0 || p1x < 0 && p1.active)
+			{
 				p1.active = false;
-			if(p2x > frame.getWidth() || p2y > frame.getHeight() || p2y < 0 || p2x < 0)
+				alive--;
+			}
+			if(p2x > frame.getWidth() || p2y > frame.getHeight() || p2y < 0 || p2x < 0 && p2.active)
+			{
 				p2.active = false;
-			
+				alive--;
+			}
+				
 			
 			for(int i=0; i<p1.getPoints().size(); i++)
 			{
-				if(p2h.intersects(p1.getPoints().get(i)))
+				if(p2h.intersects(p1.getPoints().get(i)) && p2.active)
+				{
 					p2.active = false;
-				if(i < p1.getPoints().size()-10 && p1h.intersects(p1.getPoints().get(i)))
+					alive--;
+				}
+				if(i < p1.getPoints().size()-10 && p1h.intersects(p1.getPoints().get(i)) && p1.active)
+				{
 					p1.active = false;
+					alive--;
+				}
 			}
-			
 			for(int i=0; i<p2.getPoints().size(); i++)
 			{
-				if(p1h.intersects(p2.getPoints().get(i)))
+				if(p1h.intersects(p2.getPoints().get(i)) && p1.active)
+				{
 					p1.active = false;
-				if(i < p2.getPoints().size()-10 && p2h.intersects(p2.getPoints().get(i)))
+					alive--;
+				}
+				if(i < p2.getPoints().size()-10 && p2h.intersects(p2.getPoints().get(i)) && p2.active)
+				{
+					alive--;
 					p2.active = false;
+				}	
+			}
+			
+			if(alive < 2)
+			{
+				update.stop();
 			}
 			
 			repaint();
