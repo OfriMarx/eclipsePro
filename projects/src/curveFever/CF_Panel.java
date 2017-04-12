@@ -24,7 +24,7 @@ public class CF_Panel extends JPanel{
 	private CF frame;
 	private int alive = 0;
 	
-	public CF_Panel(CF frame, String left1, String right1, String left2, String right2, String left3, String right3, String left4, String right4)
+	public CF_Panel(CF frame, String left1, String right1, String left2, String right2, String left3, String right3, String left4, String right4, int num)
 	{
 		setBackground(Color.BLACK);
 		this.frame = frame;
@@ -44,6 +44,22 @@ public class CF_Panel extends JPanel{
 		p4 = new CurvePlayer(15,500, Color.cyan, right4, left4, 0);
 		setBindings(p4, "p4");
 		alive ++;
+		
+		if(num<4)
+		{
+			p4.active = false;
+			alive--;
+		}
+		if(num<3)
+		{
+			p3.active = false;
+			alive--;
+		}
+		if(num<2)
+		{
+			p2.active = false;
+			alive--;
+		}
 		
 		this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "close");
 		this.getActionMap().put("close", new AbstractAction() {
@@ -255,7 +271,7 @@ public class CF_Panel extends JPanel{
 					p4.active = false;
 					alive--;
 				}
-				if(i < p3.getPoints().size()-10 && p1h.intersects(p3.getPoints().get(i)) && p3.active)
+				if(i < p3.getPoints().size()-10 && p3h.intersects(p3.getPoints().get(i)) && p3.active)
 				{
 					p3.active = false;
 					alive--;
@@ -278,7 +294,7 @@ public class CF_Panel extends JPanel{
 					p2.active = false;
 					alive--;
 				}
-				if(i < p4.getPoints().size()-10 && p2h.intersects(p4.getPoints().get(i)) && p4.active)
+				if(i < p4.getPoints().size()-10 && p4h.intersects(p4.getPoints().get(i)) && p4.active)
 				{
 					alive--;
 					p4.active = false;

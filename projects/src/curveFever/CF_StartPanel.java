@@ -51,6 +51,10 @@ public class CF_StartPanel extends JPanel{
 		
 		JLabel blank = new JLabel();
 		
+		JLabel numOfPlayers = new JLabel(Integer.toString(num));
+		numOfPlayers.setForeground(Color.GREEN);
+		numOfPlayers.setFont(new Font("a", Font.BOLD, 30));
+		
 		JButton p1l = new JButton(); 
 		p1l.setForeground(Color.red);
 		p1l.setFont(new Font("a", Font.BOLD, 30));
@@ -98,14 +102,10 @@ public class CF_StartPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(mainPanel);
-				frame.add(new CF_Panel(frame, p1l.getText(), p1r.getText(), p2l.getText(), p2r.getText(), p3l.getText(), p3r.getText(), p4l.getText(), p4r.getText()));
+				frame.add(new CF_Panel(frame, p1l.getText(), p1r.getText(), p2l.getText(), p2r.getText(), p3l.getText(), p3r.getText(), p4l.getText(), p4r.getText(), Integer.parseInt(numOfPlayers.getText())));
 				frame.validate();
 			}
 		});
-		
-		JLabel numOfPlayers = new JLabel(Integer.toString(num));
-		numOfPlayers.setForeground(Color.GREEN);
-		numOfPlayers.setFont(new Font("a", Font.BOLD, 30));
 		
 		JButton add = new JButton("+1");
 		add.setBackground(Color.GREEN);
