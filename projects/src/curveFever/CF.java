@@ -18,12 +18,12 @@ public class CF extends JFrame{
 		
 		CF_StartPanel startPanel = new CF_StartPanel(this);
 		add(startPanel);
+	
 		validate();
 	}
 	
 	public static void main(String[] args) {
 		new CF();
-		
 	}
 
 }

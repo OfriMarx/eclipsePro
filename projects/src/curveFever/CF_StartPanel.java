@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class CF_StartPanel extends JPanel{
 
 	private JButton selectedButton = null;
-	private int num = 2;
+	private int num = 4;
 	
 	public CF_StartPanel(CF frame)
 	{
@@ -36,9 +36,19 @@ public class CF_StartPanel extends JPanel{
 		JLabel p1 = new JLabel("p1", JLabel.CENTER);
 		p1.setForeground(Color.red);
 		p1.setFont(new Font("a", Font.BOLD, 35));
+		
 		JLabel p2 = new JLabel("p2", JLabel.CENTER);
 		p2.setForeground(Color.blue);
 		p2.setFont(new Font("a", Font.BOLD, 35));
+		
+		JLabel p3 = new JLabel("p3", JLabel.CENTER);
+		p3.setFont(new Font("a", Font.BOLD, 35));
+		p3.setForeground(Color.GREEN);
+		
+		JLabel p4 = new JLabel("p4", JLabel.CENTER);
+		p4.setFont(new Font("a", Font.BOLD, 35));
+		p4.setForeground(Color.CYAN);
+		
 		JLabel blank = new JLabel();
 		
 		JButton p1l = new JButton(); 
@@ -61,6 +71,26 @@ public class CF_StartPanel extends JPanel{
 		p2r.setFont(new Font("a", Font.BOLD, 30));
 		p2r.addActionListener(new ButtonAction(p2r));
 		
+		JButton p3l = new JButton(); 
+		p3l.setForeground(Color.green);
+		p3l.setFont(new Font("a", Font.BOLD, 30));
+		p3l.addActionListener(new ButtonAction(p3l));
+		
+		JButton p3r = new JButton(); 
+		p3r.setForeground(Color.green);
+		p3r.setFont(new Font("a", Font.BOLD, 30));
+		p3r.addActionListener(new ButtonAction(p3r));
+		
+		JButton p4l = new JButton(); 
+		p4l.setForeground(Color.cyan);
+		p4l.setFont(new Font("a", Font.BOLD, 30));
+		p4l.addActionListener(new ButtonAction(p4l));
+		
+		JButton p4r = new JButton();
+		p4r.setForeground(Color.cyan);
+		p4r.setFont(new Font("a", Font.BOLD, 30));
+		p4r.addActionListener(new ButtonAction(p4r));
+		
 		JButton start = new JButton("start");
 		start.setBackground(Color.yellow);
 		start.setFont(new Font("a", Font.BOLD, 30));
@@ -68,7 +98,7 @@ public class CF_StartPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(mainPanel);
-				frame.add(new CF_Panel(frame, p1l.getText(), p1r.getText(), p2l.getText(), p2r.getText()));
+				frame.add(new CF_Panel(frame, p1l.getText(), p1r.getText(), p2l.getText(), p2r.getText(), p3l.getText(), p3r.getText(), p4l.getText(), p4r.getText()));
 				frame.validate();
 			}
 		});
@@ -82,7 +112,7 @@ public class CF_StartPanel extends JPanel{
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(num < 2)
+				if(num < 4)
 					num++;
 				numOfPlayers.setText(Integer.toString(num));
 				panel.setLayout(new GridLayout(num+1, 3));
@@ -95,6 +125,18 @@ public class CF_StartPanel extends JPanel{
 					panel.add(p2);
 					panel.add(p2l);
 					panel.add(p2r);
+				}
+				if(num>2)
+				{
+					panel.add(p3);
+					panel.add(p3l);
+					panel.add(p3r);
+				}
+				if(num>3)
+				{
+					panel.add(p4);
+					panel.add(p4l);
+					panel.add(p4r);
 				}
 				panel.add(blank);
 				panel.add(start);
@@ -120,6 +162,18 @@ public class CF_StartPanel extends JPanel{
 					panel.add(p2l);
 					panel.add(p2r);
 				}
+				if(num>2)
+				{
+					panel.add(p3);
+					panel.add(p3l);
+					panel.add(p3r);
+				}
+				if(num>3)
+				{
+					panel.add(p4);
+					panel.add(p4l);
+					panel.add(p4r);
+				}
 				panel.add(blank);
 				panel.add(start);
 			}
@@ -131,6 +185,12 @@ public class CF_StartPanel extends JPanel{
 		panel.add(p2);
 		panel.add(p2l);
 		panel.add(p2r);
+		panel.add(p3);
+		panel.add(p3l);
+		panel.add(p3r);
+		panel.add(p4);
+		panel.add(p4l);
+		panel.add(p4r);
 		panel.add(blank);
 		panel.add(start);
 		head.add(add);
@@ -184,7 +244,7 @@ public class CF_StartPanel extends JPanel{
 					selectedButton.setBackground(Color.black);
 				
 				selectedButton = b;
-				b.setBackground(Color.green);
+				b.setBackground(Color.WHITE);
 			}
 			else
 			{
