@@ -8,7 +8,8 @@ public class Main {
 	public static void main(String[] args) {
 		LinkedList<LinkedList<Integer>> solutions = new LinkedList<LinkedList<Integer>>(); 
 		LinkedList<Integer> bestSolution = new LinkedList<Integer>();
-		int answer = 1, sum = 0, gen = 1, maxNum = 10, numInList = 10;
+		int answer = 200, maxNum = 100, numInList = 16;
+		int sum = 0, gen = 1;
 		boolean check = true;
 		
 		for(int i = 0; i<10; i++)
