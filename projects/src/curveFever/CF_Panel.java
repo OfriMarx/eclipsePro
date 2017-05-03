@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -20,6 +21,7 @@ import javax.swing.Timer;
 public class CF_Panel extends JPanel{
 	
 	private Timer update = new Timer(5, new TimerAction());
+	private ArrayList<CurvePlayer> playerList = new ArrayList<>();
 	private CurvePlayer p1, p2, p3, p4;
 	private CF frame;
 	private int alive = 0;
@@ -78,43 +80,28 @@ public class CF_Panel extends JPanel{
 	{
 		super.paintComponent(g);
 		
-		p1.drawPlayer(g);
-		p2.drawPlayer(g);
-		p3.drawPlayer(g);
-		p4.drawPlayer(g);
+		for(CurvePlayer p: playerList)
+		{
+			p.drawPlayer(g);
+		}
 		
 		if(alive < 2)
 		{
-			Font stringFont = new Font("a", Font.BOLD, 35);
-			String s = "P1 WINS!";
-			int sx = frame.getWidth() / 2 - g.getFontMetrics(stringFont).stringWidth(s) / 2;
-			int sy = frame.getHeight()/2;
 			if(p1.active)
 			{
-				g.setColor(Color.RED);
-				g.setFont(stringFont);
-				g.drawString(s, sx, sy);
+				ending(g, "P1 WINS!", Color.RED);
 			}
 			else if(p2.active)
 			{
-				s = "P2 WINS!";
-				g.setColor(Color.blue);
-				g.setFont(stringFont);
-				g.drawString(s, sx, sy);
+				ending(g, "P2 WINS!", Color.blue);
 			}
 			else if(p3.active)
 			{
-				s = "P3 WINS!";
-				g.setColor(Color.green);
-				g.setFont(stringFont);
-				g.drawString(s, sx, sy);
+				ending(g, "P3 WINS!", Color.green);
 			}
 			else if(p4.active)
 			{
-				s = "P4 WINS!";
-				g.setColor(Color.cyan);
-				g.setFont(stringFont);
-				g.drawString(s, sx, sy);
+				ending(g, "P4 WINS!", Color.cyan);
 			}
 		}
 	}
@@ -167,47 +154,49 @@ public class CF_Panel extends JPanel{
 		);
 	}
 	
+	public void ending(Graphics g, String str, Color c)
+	{
+		Font stringFont = new Font("a", Font.BOLD, 35);
+		int sx = frame.getWidth() / 2 - g.getFontMetrics(stringFont).stringWidth(str) / 2;
+		int sy = frame.getHeight()/2;
+		g.setColor(c);
+		g.setFont(stringFont);
+		g.drawString(str, sx, sy);
+		update.stop();
+	}
+	
 	private class TimerAction implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if(p1.active)
-				p1.updatePlayer();
-			if(p2.active)
-				p2.updatePlayer();
-			if(p3.active)
-				p3.updatePlayer();
-			if(p4.active)
-				p4.updatePlayer();
+			for(CurvePlayer p: playerList)
+			{
+				if(p.active)
+				{
+					p.updatePlayer();
+					
+					double px = p.getHead().getX(), py =  p.getHead().getY();
+					Rectangle2D ph = p.getHead();
+					
+					if((px > frame.getWidth() || py > frame.getHeight() || py < 0 || px < 0))
+					{
+						p.active = false;
+						alive--;
+					}
+					
+					for(CurvePlayer p2: playerList)
+					{
+						if(playerList.indexOf(p) == playerList.indexOf(p2))
+						{
+							
+						}
+					}
+				}
+			}
 			
-			double p1x = p1.getHead().getX(), p1y =  p1.getHead().getY();
-			double p2x = p2.getHead().getX(), p2y =  p2.getHead().getY();
-			double p3x = p3.getHead().getX(), p3y =  p3.getHead().getY();
-			double p4x = p4.getHead().getX(), p4y =  p4.getHead().getY();
+			
 			Rectangle2D p1h = p1.getHead(), p2h = p2.getHead(), p3h = p3.getHead(), p4h = p4.getHead();
-			
-			if((p1x > frame.getWidth() || p1y > frame.getHeight() || p1y < 0 || p1x < 0) && p1.active)
-			{
-				p1.active = false;
-				alive--;
-			}
-			if((p2x > frame.getWidth() || p2y > frame.getHeight() || p2y < 0 || p2x < 0) && p2.active)
-			{
-				p2.active = false;
-				alive--;
-			}
-			if((p3x > frame.getWidth() || p3y > frame.getHeight() || p3y < 0 || p3x < 0) && p3.active)
-			{
-				p3.active = false;
-				alive--;
-			}
-			if((p4x > frame.getWidth() || p4y > frame.getHeight() || p4y < 0 || p4x < 0) && p4.active)
-			{
-				p4.active = false;
-				alive--;
-			}
-				
-			
+		
 			for(int i=0; i<p1.getPoints().size(); i++)
 			{
 				if(p2h.intersects(p1.getPoints().get(i)) && p2.active)
@@ -299,12 +288,6 @@ public class CF_Panel extends JPanel{
 					alive--;
 					p4.active = false;
 				}	
-			}
-			
-			
-			if(alive < 2)
-			{
-				update.stop();
 			}
 			
 			repaint();
