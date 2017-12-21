@@ -36,8 +36,8 @@ public class CF_Panel extends JPanel{
 		int frameWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		
 		//Randomizing starting points and angles
-		int xStart = (int)(Math.random()*(frameWidth-2));
-		int yStart = (int)(Math.random()*(frameHeight-2));
+		int xStart = (int)(Math.random()*(frameWidth-200) + 100);
+		int yStart = (int)(Math.random()*(frameHeight-200) + 100);
 		int angle = (int)(Math.random()*360);
 		
 		p1 = new CurvePlayer(xStart, yStart, Color.red, right1, left1, angle);
@@ -45,8 +45,8 @@ public class CF_Panel extends JPanel{
 		alive ++;
 		playerList.add(p1);
 		
-		xStart = (int)(Math.random()*(frameWidth-2));
-		yStart = (int)(Math.random()*(frameHeight-2));
+		xStart = (int)(Math.random()*(frameWidth-200) + 100);
+		yStart = (int)(Math.random()*(frameHeight-200) + 100);
 		angle = (int)(Math.random()*360);
 		
 		p2 = new CurvePlayer(xStart, yStart, Color.blue, right2, left2, angle);
@@ -54,8 +54,8 @@ public class CF_Panel extends JPanel{
 		alive ++;
 		playerList.add(p2);
 		
-		xStart = (int)(Math.random()*(frameWidth-2));
-		yStart = (int)(Math.random()*(frameHeight-2));
+		xStart = (int)(Math.random()*(frameWidth-200) + 100);
+		yStart = (int)(Math.random()*(frameHeight-200) + 100);
 		angle = (int)(Math.random()*360);
 		
 		p3 = new CurvePlayer(xStart, yStart, Color.green, right3, left3, angle);
@@ -63,8 +63,8 @@ public class CF_Panel extends JPanel{
 		alive ++;
 		playerList.add(p3);
 		
-		xStart = (int)(Math.random()*(frameWidth-2));
-		yStart = (int)(Math.random()*(frameHeight-2));
+		xStart = (int)(Math.random()*(frameWidth-200) + 100);
+		yStart = (int)(Math.random()*(frameHeight-200) + 100);
 		angle = (int)(Math.random()*360);
 		
 		p4 = new CurvePlayer(xStart, yStart, Color.cyan, right4, left4, angle);
@@ -197,126 +197,38 @@ public class CF_Panel extends JPanel{
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for(CurvePlayer p: playerList)
+			for(CurvePlayer player: playerList)
 			{
-				if(p.active)
+				if(player.active)
 				{
-					p.updatePlayer();
+					player.updatePlayer();
 					
-					double px = p.getHead().getX(), py =  p.getHead().getY();
-					Rectangle2D ph = p.getHead();
+					double px = player.getHead().getX(), py =  player.getHead().getY();
 					
-					if((px > frame.getWidth() || py > frame.getHeight() || py < 0 || px < 0))
+					if((px > frame.getWidth() - 8 || py > frame.getHeight() - 33 || py < 0 || px < 0))
 					{
-						p.active = false;
+						player.active = false;
 						alive--;
+						System.out.println("player out of screen");
 					}
 					
-					for(CurvePlayer p2: playerList)
+					for(CurvePlayer player2: playerList)
 					{
-						if(playerList.indexOf(p) == playerList.indexOf(p2))
+						for(Rectangle2D point: player.getPoints())
 						{
-							
+							if(playerList.indexOf(player) != playerList.indexOf(player2))
+							{
+								if(player2.active && player2.getHead().intersects(point))
+								{
+									player2.active = false;
+									alive--;
+									System.out.println("player intersected with player");
+								}
+							}
 						}
 					}
 				}
-			}
-			
-			
-			Rectangle2D p1h = p1.getHead(), p2h = p2.getHead(), p3h = p3.getHead(), p4h = p4.getHead();
-		
-			for(int i=0; i<p1.getPoints().size(); i++)
-			{
-				if(p2h.intersects(p1.getPoints().get(i)) && p2.active)
-				{
-					p2.active = false;
-					alive--;
-				}
-				if(p3h.intersects(p1.getPoints().get(i)) && p3.active)
-				{
-					p3.active = false;
-					alive--;
-				}
-				if(p4h.intersects(p1.getPoints().get(i)) && p4.active)
-				{
-					p4.active = false;
-					alive--;
-				}
-				if(i < p1.getPoints().size()-10 && p1h.intersects(p1.getPoints().get(i)) && p1.active)
-				{
-					p1.active = false;
-					alive--;
-				}
-			}
-			for(int i=0; i<p2.getPoints().size(); i++)
-			{
-				if(p1h.intersects(p2.getPoints().get(i)) && p1.active)
-				{
-					p1.active = false;
-					alive--;
-				}
-				if(p3h.intersects(p2.getPoints().get(i)) && p3.active)
-				{
-					p3.active = false;
-					alive--;
-				}
-				if(p4h.intersects(p2.getPoints().get(i)) && p4.active)
-				{
-					p4.active = false;
-					alive--;
-				}
-				if(i < p2.getPoints().size()-10 && p2h.intersects(p2.getPoints().get(i)) && p2.active)
-				{
-					alive--;
-					p2.active = false;
-				}	
-			}
-			for(int i=0; i<p3.getPoints().size(); i++)
-			{
-				if(p2h.intersects(p3.getPoints().get(i)) && p2.active)
-				{
-					p2.active = false;
-					alive--;
-				}
-				if(p1h.intersects(p3.getPoints().get(i)) && p1.active)
-				{
-					p1.active = false;
-					alive--;
-				}
-				if(p4h.intersects(p3.getPoints().get(i)) && p4.active)
-				{
-					p4.active = false;
-					alive--;
-				}
-				if(i < p3.getPoints().size()-10 && p3h.intersects(p3.getPoints().get(i)) && p3.active)
-				{
-					p3.active = false;
-					alive--;
-				}
-			}
-			for(int i=0; i<p4.getPoints().size(); i++)
-			{
-				if(p1h.intersects(p4.getPoints().get(i)) && p1.active)
-				{
-					p1.active = false;
-					alive--;
-				}
-				if(p3h.intersects(p4.getPoints().get(i)) && p3.active)
-				{
-					p3.active = false;
-					alive--;
-				}
-				if(p2h.intersects(p4.getPoints().get(i)) && p2.active)
-				{
-					p2.active = false;
-					alive--;
-				}
-				if(i < p4.getPoints().size()-10 && p4h.intersects(p4.getPoints().get(i)) && p4.active)
-				{
-					alive--;
-					p4.active = false;
-				}	
-			}
+			}		
 			
 			repaint();
 		}
