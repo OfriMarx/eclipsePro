@@ -2,15 +2,24 @@ package ga;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
 
+	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		LinkedList<LinkedList<Integer>> solutions = new LinkedList<LinkedList<Integer>>(); 
 		LinkedList<Integer> bestSolution = new LinkedList<Integer>();
-		int answer = 200, maxNum = 100, numInList = 16;
+		int answer = 10, maxNum = 20, numInList = 10;
 		int sum = 0, gen = 1;
 		boolean check = true;
+		
+		System.out.println("Enter max number");
+		maxNum = sc.nextInt();
+		System.out.println("Enter sum");
+		answer = sc.nextInt();
+		System.out.println("Enter number of numbers");
+		numInList = sc.nextInt();
 		
 		for(int i = 0; i<10; i++)
 		{
