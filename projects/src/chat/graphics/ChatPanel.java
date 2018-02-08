@@ -22,13 +22,14 @@ public class ChatPanel extends JPanel{
 	
 	private ArrayList<String> lines = new ArrayList<>();
 	private int startLine = 0;
+	private JTextField tField = new JTextField(100);
 	private JScrollBar scrollBar;
 	
 	public ChatPanel(Client c) {
 		setBackground(Color.BLACK);
 		setLayout(new BorderLayout());
 		
-		JTextField tField = new JTextField(100);
+		tField = new JTextField(100);
 		tField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -78,5 +79,9 @@ public class ChatPanel extends JPanel{
 		}
 		
 		repaint();
+	}
+
+	public JTextField getTextField() {
+		return tField;
 	}
 }

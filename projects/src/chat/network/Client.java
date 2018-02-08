@@ -94,6 +94,8 @@ public class Client {
 			input.close();
 			output.close();
 			socket.close();
+			
+			frame.disconnect();
 
 			System.out.println("client " + name + ": Disconnected");
 		} catch (IOException e) {

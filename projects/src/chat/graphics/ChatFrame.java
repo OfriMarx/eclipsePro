@@ -24,7 +24,8 @@ public class ChatFrame extends JFrame{
 			@Override
             public void windowClosing(WindowEvent e) {
                 dispose();
-                c.disconnect();
+                if(c.isConnected())
+                	c.disconnect();
             }  
         });  
 		
@@ -40,5 +41,10 @@ public class ChatFrame extends JFrame{
 	
 	public void addLine(String s) {
 		panel.addLine(s);
+	}
+	
+	public void disconnect() {
+		panel.getTextField().setEnabled(false);
+		addLine("You have been disconnected");
 	}
 }
