@@ -53,8 +53,12 @@ public class Client {
 					String message;
 					while(connected && input.read() >= 0) {
 						message = input.readLine();
-						if(message != null)
+						if(message != null && !message.trim().isEmpty())
+						{
+							System.out.println(message);
 							frame.addLine(message);
+						}
+							
 					}
 				} catch (Exception e) {
 					System.out.println("client " + name + ": Error in receiving messages"); 
@@ -118,7 +122,6 @@ public class Client {
 		String address = sc.nextLine();
 
 		Server s = new Server(port);
-		s.newConnection();
 
 		Client c = new Client(address, port, "David");
 		c.connect();

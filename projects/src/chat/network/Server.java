@@ -12,16 +12,17 @@ public class Server{
 	public static Scanner sc = new Scanner(System.in);
 	
 	private ServerSocket serverSocket = null;
+	private String colors[] = {"255.0.0", "0.255.0", "0.0.255"};
+	private final int numOfColors = 3;
 	private ArrayList<ServerThread> threadList;
-	int id;
 	
 	public Server(int port) {
 		threadList = new ArrayList<>();
-		id = 0;
 		
 		try {
 			serverSocket = new ServerSocket(port);
 			System.out.println("server is running");
+			newConnection();
 		} catch (Exception e) {
 			System.out.println("could not start server");
 			e.printStackTrace();
@@ -29,7 +30,7 @@ public class Server{
 	}
 
 	public void newConnection() {
-		ServerThread st = new ServerThread(this, serverSocket, threadList.size());
+		ServerThread st = new ServerThread(this, serverSocket, threadList.size(), colors[threadList.size()%numOfColors]);
 		threadList.add(st);
 		st.start();
 	}

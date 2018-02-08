@@ -20,20 +20,20 @@ import chat.network.Client;
 @SuppressWarnings("serial")
 public class ChatPanel extends JPanel{
 	
-	private ArrayList<String> lines = new ArrayList<>();
+	private ArrayList<ChatLine> lines = new ArrayList<>();
 	private int startLine = 0;
 	private JTextField tField = new JTextField(100);
 	private JScrollBar scrollBar;
 	
 	public ChatPanel(Client c) {
-		setBackground(Color.BLACK);
+		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		
 		tField = new JTextField(100);
 		tField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addLine(c.getName() + ": " + tField.getText());
+				addLine(c.getName() + ": " + tField.getText(), 0, 0, 0);
 				c.write(tField.getText());
 				tField.setText("");
 			}
@@ -61,16 +61,17 @@ public class ChatPanel extends JPanel{
 		int x=5, y=20;
 		Font f = new Font("a", Font.PLAIN, 20);
 		g.setFont(f);
-		g.setColor(Color.GREEN);
 		
 		for(int i=startLine; i<lines.size(); i++) {
-			g.drawString(lines.get(i), x, y);
+			System.out.println("g: " + lines.get(i).line);
+			g.setColor(lines.get(i).color);
+			g.drawString(lines.get(i).line, x, y);
 			y+=20;
 		}
 	}
 	
-	public void addLine(String s) {
-		lines.add(s);
+	public void addLine(String s, int r, int g, int b) {
+		lines.add(new ChatLine(s, r, g, b));
 		
 		int h = getHeight();
 		if(lines.size() > h/20-2 && startLine < lines.size() - h/20+2) {
@@ -83,5 +84,16 @@ public class ChatPanel extends JPanel{
 
 	public JTextField getTextField() {
 		return tField;
+	}
+	
+	private class ChatLine {
+		
+		private String line;
+		private Color color;
+		
+		public ChatLine(String line, int r, int g, int b) {
+			this.line = line;
+			this.color = new Color(r, g, b);
+		}
 	}
 }
