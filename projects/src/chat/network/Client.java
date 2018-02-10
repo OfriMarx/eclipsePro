@@ -54,11 +54,7 @@ public class Client {
 					while(connected && input.read() >= 0) {
 						message = input.readLine();
 						if(message != null && !message.trim().isEmpty())
-						{
-							System.out.println(message);
 							frame.addLine(message);
-						}
-							
 					}
 				} catch (Exception e) {
 					System.out.println("client " + name + ": Error in receiving messages"); 
@@ -117,26 +113,17 @@ public class Client {
 	}
 
 	public static void main(String[] args) {
+		System.out.print("Enter name: ");
+		String name = sc.nextLine();
 		System.out.print("Enter address: ");
-		int port = 7444;
 		String address = sc.nextLine();
-
-		Server s = new Server(port);
-
-		Client c = new Client(address, port, "David");
-		c.connect();
-
-		while(c.isConnected())
-		{
-			address = sc.nextLine();
-			if(!c.isConnected() || address.equals("exit"))
-				break;
-			c.write(address);
-		}
-
-		if(c.isConnected())
-			c.disconnect();
-		s.closeServer();
+		System.out.print("Enter port: ");
+		int port = sc.nextInt();
+		
+		System.out.println(address + " " + port + " " + name);
+		
+		//Client c = new Client(address, port, name);
+		//c.connect();
 	}
 
 }

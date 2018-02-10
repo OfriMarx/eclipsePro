@@ -1,8 +1,10 @@
 package chat.graphics;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -12,12 +14,17 @@ import chat.network.Client;
 public class ChatFrame extends JFrame{
 
 	private ChatPanel panel;
+	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN};
+	private int colorIndex = -1;
+	final private int numOfColors = 3;
+	private HashMap<String, Color> colorMap = new HashMap<>();
 	
 	public ChatFrame(Client c) {
 		setTitle("Title?");
 		Dimension d = new Dimension(800, 600);
 		setSize(d);
 		setLocationRelativeTo(null);
+		colorMap.put("Server", Color.BLACK);
 		
 		addWindowListener(new WindowAdapter(){ 
 			
@@ -29,7 +36,7 @@ public class ChatFrame extends JFrame{
             }  
         });  
 		
-		panel = new ChatPanel(c);
+		panel = new ChatPanel(this, c);
 		add(panel);
 		
 		validate();
@@ -39,40 +46,29 @@ public class ChatFrame extends JFrame{
 		setAlwaysOnTop(false);
 	}
 	
-	public void addLine(String s) {
-		int r=0,g=0,b=0;
-		String line = "";
-		String[] message = new String[s.split(".").length];
+	public void addLine(String message) {
+		String name;
+		if(message.split(":").length > 1)
+			name = message.split(":")[0].trim();
+		else
+			name = message.split(" ")[0].trim();
 		
-		System.out.println(s);
-		System.out.println(s.split(".").length);
-		
-		for(int i=0; i<s.split(".").length; i++) {
-			message[i] = s.split(".")[i];
-		}
-		
-		System.out.println(message.length);
-		
-		if(message.length > 3)
-		{
-			b = Integer.parseInt(message[message.length-1]);
-			g = Integer.parseInt(message[message.length-2]);
-			r = Integer.parseInt(message[message.length-3]);
-		}
-		
-		System.out.println(message.length);
-
-		for(int i=0; i<message.length-3; i++) {
-			System.out.println("test");
-			line += message[i];
-		}
-		System.out.println("frame: " + line);
-		
-		panel.addLine(line, r, g, b);
+		panel.addLine(message, nameToColor(name));
 	}
 	
 	public void disconnect() {
 		panel.getTextField().setEnabled(false);
-		addLine("You have been disconnected.0.0.0");
+		addLine("Server: You have been disconnected");
+	}
+	
+	Color nameToColor(String name) {
+		if(colorMap.containsKey(name)) {
+			return colorMap.get(name);
+		}
+		else {
+			colorIndex++;
+			colorMap.put(name, colors[colorIndex%numOfColors]);
+			return colors[colorIndex%numOfColors];
+		}
 	}
 }

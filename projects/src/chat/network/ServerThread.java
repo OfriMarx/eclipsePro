@@ -16,13 +16,12 @@ public class ServerThread{
 	private BufferedReader input;
 	private boolean connected = false;
 	private int id;
-	private String name, color;
+	private String name;
 	
-	public ServerThread(Server server, ServerSocket serverSocket, int id, String color) {
+	public ServerThread(Server server, ServerSocket serverSocket, int id) {
 		this.serverSocket = serverSocket;
 		this.server = server;
 		this.id = id;
-		this.color = color;
 	}
 	
 	public void disconnect() {
@@ -46,7 +45,7 @@ public class ServerThread{
 	public void write(String message) {
 		if(socket != null && output != null) {
 			try {
-				output.writeBytes(" " + message + "." + color + "\n");
+				output.writeBytes(" " + message + "\n");
 				output.flush();
 			} catch (Exception e) {
 				System.out.println("ServerThread " + id + ": Could not write");

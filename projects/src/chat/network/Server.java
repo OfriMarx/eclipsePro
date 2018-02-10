@@ -5,15 +5,11 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 public class Server{
 	
 	public static Scanner sc = new Scanner(System.in);
 	
 	private ServerSocket serverSocket = null;
-	private String colors[] = {"255.0.0", "0.255.0", "0.0.255"};
-	private final int numOfColors = 3;
 	private ArrayList<ServerThread> threadList;
 	
 	public Server(int port) {
@@ -30,7 +26,7 @@ public class Server{
 	}
 
 	public void newConnection() {
-		ServerThread st = new ServerThread(this, serverSocket, threadList.size(), colors[threadList.size()%numOfColors]);
+		ServerThread st = new ServerThread(this, serverSocket, threadList.size());
 		threadList.add(st);
 		st.start();
 	}
@@ -78,14 +74,17 @@ public class Server{
 	}
 
 	public static void main(String[] args) {
-		System.out.println(Thread.activeCount());
-		System.out.print("Enter src port (recommended 7444): ");
+		System.out.print("Enter port (recommended 7444): ");
 		int port = Client.sc.nextInt();
 		
 	    Server s = new Server(port);
-	    s.newConnection();
-	   
-	    sc.next();
+	    
+	    Client c = new Client("127.0.0.1", port, "Ofri");
+	    c.connect();
+	    
+	    String input = "";
+	    while(!input.equals("exit"))
+	    	input = sc.nextLine();
 	    
 	    s.closeServer();
 	}

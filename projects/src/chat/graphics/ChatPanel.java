@@ -25,7 +25,7 @@ public class ChatPanel extends JPanel{
 	private JTextField tField = new JTextField(100);
 	private JScrollBar scrollBar;
 	
-	public ChatPanel(Client c) {
+	public ChatPanel(ChatFrame f, Client c) {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		
@@ -33,7 +33,7 @@ public class ChatPanel extends JPanel{
 		tField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addLine(c.getName() + ": " + tField.getText(), 0, 0, 0);
+				addLine(c.getName() + ": " + tField.getText(), f.nameToColor(c.getName()));
 				c.write(tField.getText());
 				tField.setText("");
 			}
@@ -63,15 +63,14 @@ public class ChatPanel extends JPanel{
 		g.setFont(f);
 		
 		for(int i=startLine; i<lines.size(); i++) {
-			System.out.println("g: " + lines.get(i).line);
 			g.setColor(lines.get(i).color);
 			g.drawString(lines.get(i).line, x, y);
 			y+=20;
 		}
 	}
 	
-	public void addLine(String s, int r, int g, int b) {
-		lines.add(new ChatLine(s, r, g, b));
+	public void addLine(String s, Color c) {
+		lines.add(new ChatLine(s, c));
 		
 		int h = getHeight();
 		if(lines.size() > h/20-2 && startLine < lines.size() - h/20+2) {
@@ -91,9 +90,9 @@ public class ChatPanel extends JPanel{
 		private String line;
 		private Color color;
 		
-		public ChatLine(String line, int r, int g, int b) {
+		public ChatLine(String line, Color c) {
 			this.line = line;
-			this.color = new Color(r, g, b);
+			this.color = c;
 		}
 	}
 }
