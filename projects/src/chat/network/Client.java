@@ -122,8 +122,8 @@ public class Client {
 		
 		System.out.println(address + " " + port + " " + name);
 		
-		//Client c = new Client(address, port, name);
-		//c.connect();
+		Client c = new Client(address, port, name);
+		c.connect();
 	}
 
 }

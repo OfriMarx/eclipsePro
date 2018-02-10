@@ -36,8 +36,10 @@ public class ChatFrame extends JFrame{
             }  
         });  
 		
-		panel = new ChatPanel(this, c);
-		add(panel);
+		ChatLogin loginPanel = new ChatLogin();
+		add(loginPanel);
+		//panel = new ChatPanel(this, c);
+		//add(panel);
 		
 		validate();
 		
@@ -70,5 +72,9 @@ public class ChatFrame extends JFrame{
 			colorMap.put(name, colors[colorIndex%numOfColors]);
 			return colors[colorIndex%numOfColors];
 		}
+	}
+	
+	public static void main(String[] args) {
+		new ChatFrame(null);
 	}
 }
