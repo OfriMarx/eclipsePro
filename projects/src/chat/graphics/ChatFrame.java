@@ -13,13 +13,18 @@ import chat.network.Client;
 @SuppressWarnings("serial")
 public class ChatFrame extends JFrame{
 
-	private ChatPanel panel;
+	private ChatPanel chatPanel;
+	private ChatLogin loginPanel;
 	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN};
 	private int colorIndex = -1;
 	final private int numOfColors = 3;
 	private HashMap<String, Color> colorMap = new HashMap<>();
+	private Client c;
+	private boolean admin;
 	
-	public ChatFrame(Client c) {
+	public ChatFrame(boolean admin) {
+		this.admin = admin;
+		
 		setTitle("Title?");
 		Dimension d = new Dimension(800, 600);
 		setSize(d);
@@ -36,10 +41,8 @@ public class ChatFrame extends JFrame{
             }  
         });  
 		
-		ChatLogin loginPanel = new ChatLogin();
+		loginPanel = new ChatLogin(this);
 		add(loginPanel);
-		//panel = new ChatPanel(this, c);
-		//add(panel);
 		
 		validate();
 		
@@ -55,11 +58,21 @@ public class ChatFrame extends JFrame{
 		else
 			name = message.split(" ")[0].trim();
 		
-		panel.addLine(message, nameToColor(name));
+		chatPanel.addLine(message, nameToColor(name));
+	}
+	
+	public void connect(String name, String address, int port) {
+		c = new Client(address, port, name, this);
+		chatPanel = new ChatPanel(this, c);
+		remove(loginPanel);
+		add(chatPanel);
+		c.connect();
+		
+		validate();
 	}
 	
 	public void disconnect() {
-		panel.getTextField().setEnabled(false);
+		chatPanel.getTextField().setEnabled(false);
 		addLine("Server: You have been disconnected");
 	}
 	
@@ -74,7 +87,11 @@ public class ChatFrame extends JFrame{
 		}
 	}
 	
+	public boolean isAdmin() {
+		return admin;
+	}
+
 	public static void main(String[] args) {
-		new ChatFrame(null);
+		new ChatFrame(false);
 	}
 }

@@ -24,8 +24,13 @@ public class ChatPanel extends JPanel{
 	private int startLine = 0;
 	private JTextField tField = new JTextField(100);
 	private JScrollBar scrollBar;
+	private Client c;
+	private ChatFrame f;
 	
 	public ChatPanel(ChatFrame f, Client c) {
+		this.c = c;
+		this.f = f;
+		
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		
@@ -33,8 +38,14 @@ public class ChatPanel extends JPanel{
 		tField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addLine(c.getName() + ": " + tField.getText(), f.nameToColor(c.getName()));
-				c.write(tField.getText());
+				if(!tField.getText().trim().isEmpty())
+				{
+					if(!execute(tField.getText()))
+					{
+						addLine(c.getName() + ": " + tField.getText(), f.nameToColor(c.getName()));
+						c.write(tField.getText());
+					}
+				}
 				tField.setText("");
 			}
 		});
@@ -83,6 +94,37 @@ public class ChatPanel extends JPanel{
 
 	public JTextField getTextField() {
 		return tField;
+	}
+	
+	private boolean execute(String s) {
+		if(!f.isAdmin())
+			return false;
+		
+		String[] command = s.split(" ").clone();
+		
+		if(command.length != 2)
+			return false;
+		
+		String type = command[0];
+		String value = command[1];
+		
+		switch (type) {
+		case "bg":
+			setBackground(StringToColor(value));
+			c.writeAdmin("bg " + value);
+			return true;
+		default:
+			return false;
+		}
+	}
+	
+	private Color StringToColor(String s) {
+		String[] rgb = s.split("\\.").clone();
+		
+		if(rgb.length != 3)
+			return Color.WHITE;
+		
+		return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
 	}
 	
 	private class ChatLine {

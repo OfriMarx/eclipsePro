@@ -22,11 +22,11 @@ public class Client {
 	private String name;
 	private ChatFrame frame;
 
-	public Client(String address, int port, String name) {
+	public Client(String address, int port, String name, ChatFrame frame) {
 		this.address = address;
 		this.port = port;
 		this.name = name;
-		frame = new ChatFrame(this);
+		this.frame = frame;
 	}
 
 	public void connect() {
@@ -85,6 +85,21 @@ public class Client {
 			System.out.println("client " + name + ": socket or output is not intialized, could not write");
 		}
 	}
+	
+	public void writeAdmin(String message) {
+		if(socket != null && output != null) {
+			try {
+				output.writeBytes(" Admin: " + message + "\n");
+				output.flush();
+			} catch (Exception e) {
+				System.out.println("client " + name + ": Could not write");
+				e.printStackTrace();
+			}
+		}
+		else {
+			System.out.println("client " + name + ": socket or output is not intialized, could not write");
+		}
+	}
 
 	public void disconnect() {
 		try {
@@ -111,19 +126,4 @@ public class Client {
 	public String getName() {
 		return name;
 	}
-
-	public static void main(String[] args) {
-		System.out.print("Enter name: ");
-		String name = sc.nextLine();
-		System.out.print("Enter address: ");
-		String address = sc.nextLine();
-		System.out.print("Enter port: ");
-		int port = sc.nextInt();
-		
-		System.out.println(address + " " + port + " " + name);
-		
-		Client c = new Client(address, port, name);
-		c.connect();
-	}
-
 }

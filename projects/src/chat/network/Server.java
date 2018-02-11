@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import chat.graphics.ChatFrame;
+
 public class Server{
 	
 	public static Scanner sc = new Scanner(System.in);
@@ -74,13 +76,9 @@ public class Server{
 	}
 
 	public static void main(String[] args) {
-		System.out.print("Enter port (recommended 7444): ");
-		int port = Client.sc.nextInt();
-		
-	    Server s = new Server(port);
+	    Server s = new Server(7444);
 	    
-	    Client c = new Client("127.0.0.1", port, "Ofri");
-	    c.connect();
+	    new ChatFrame(true);
 	    
 	    String input = "";
 	    while(!input.equals("exit"))
