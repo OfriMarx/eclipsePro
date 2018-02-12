@@ -24,12 +24,12 @@ public class ChatPanel extends JPanel{
 	private int startLine = 0;
 	private JTextField tField = new JTextField(100);
 	private JScrollBar scrollBar;
-	private Client c;
 	private ChatFrame f;
+	private Client c;
 	
 	public ChatPanel(ChatFrame f, Client c) {
-		this.c = c;
 		this.f = f;
+		this.c = c;
 		
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
@@ -40,11 +40,13 @@ public class ChatPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(!tField.getText().trim().isEmpty())
 				{
-					if(!execute(tField.getText()))
+					if(execute("Admin: " + tField.getText()))
+						c.writeAdmin("Admin: " + tField.getText());
+					else 
 					{
-						addLine(c.getName() + ": " + tField.getText(), f.nameToColor(c.getName()));
+						addLine(c.getName() + ": " + tField.getText(), f.nameToColor(c.getName()), false);
 						c.write(tField.getText());
-					}
+					}	
 				}
 				tField.setText("");
 			}
@@ -61,8 +63,9 @@ public class ChatPanel extends JPanel{
 			}
 		});
 		
-		add(tField, BorderLayout.SOUTH);
 		add(scrollBar, BorderLayout.EAST);
+		add(tField, BorderLayout.SOUTH);
+		tField.requestFocus();
 	}
 	
 	@Override
@@ -80,13 +83,17 @@ public class ChatPanel extends JPanel{
 		}
 	}
 	
-	public void addLine(String s, Color c) {
-		lines.add(new ChatLine(s, c));
-		
-		int h = getHeight();
-		if(lines.size() > h/20-2 && startLine < lines.size() - h/20+2) {
-			startLine = lines.size() - h/20+2;
-			scrollBar.setValues(startLine, 5, 0, startLine+5);
+	public void addLine(String s, Color c, boolean command) {
+		if(command)
+			execute(s);
+		else {
+			lines.add(new ChatLine(s, c));
+			
+			int h = getHeight();
+			if(lines.size() > h/20-2 && startLine < lines.size() - h/20+2) {
+				startLine = lines.size() - h/20+2;
+				scrollBar.setValues(startLine, 5, 0, startLine+5);
+			}	
 		}
 		
 		repaint();
@@ -102,16 +109,20 @@ public class ChatPanel extends JPanel{
 		
 		String[] command = s.split(" ").clone();
 		
-		if(command.length != 2)
+		if(command.length != 3 || !command[0].equals("Admin:"))
 			return false;
 		
-		String type = command[0];
-		String value = command[1];
+		String type = command[1];
+		String value = command[2];
 		
 		switch (type) {
 		case "bg":
 			setBackground(StringToColor(value));
-			c.writeAdmin("bg " + value);
+			return true;
+		case "kick":
+			if(value.equals(c.getName())) {
+				c.disconnect("You have been kicked by an admin");
+			}
 			return true;
 		default:
 			return false;

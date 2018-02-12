@@ -64,9 +64,10 @@ public class ChatLogin extends JPanel{
 					error.setText("Port should be a number");
 				else if(!validAddress(address)) 
 					error.setText("address should be: number.number.numbre.number");
-				else if(name.equals("Admin")) {
+				else if(name.equals("Admin") || name.equals("Server"))
 					error.setText("Please choose a different name");
-				}
+				else if(frame.colorMap.containsKey(name))
+					error.setText("Name taken");
 				else {
 					frame.connect(nField.getText(), aField.getText().trim(), Integer.parseInt(pField.getText().trim()));
 				}

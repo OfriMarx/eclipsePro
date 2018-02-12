@@ -62,7 +62,7 @@ public class Client {
 				}
 
 				if(connected)
-					disconnect();
+					disconnect("You have been disconnected");
 			}
 
 		};
@@ -101,7 +101,7 @@ public class Client {
 		}
 	}
 
-	public void disconnect() {
+	public void disconnect(String message) {
 		try {
 			connected = false;
 			socket.shutdownOutput();
@@ -110,7 +110,7 @@ public class Client {
 			output.close();
 			socket.close();
 			
-			frame.disconnect();
+			frame.disconnect(message);
 
 			System.out.println("client " + name + ": Disconnected");
 		} catch (IOException e) {

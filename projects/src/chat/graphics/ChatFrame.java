@@ -18,7 +18,7 @@ public class ChatFrame extends JFrame{
 	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN};
 	private int colorIndex = -1;
 	final private int numOfColors = 3;
-	private HashMap<String, Color> colorMap = new HashMap<>();
+	public HashMap<String, Color> colorMap = new HashMap<>();
 	private Client c;
 	private boolean admin;
 	
@@ -30,6 +30,7 @@ public class ChatFrame extends JFrame{
 		setSize(d);
 		setLocationRelativeTo(null);
 		colorMap.put("Server", Color.BLACK);
+		colorMap.put("Admin", Color.BLACK);
 		
 		addWindowListener(new WindowAdapter(){ 
 			
@@ -37,7 +38,7 @@ public class ChatFrame extends JFrame{
             public void windowClosing(WindowEvent e) {
                 dispose();
                 if(c.isConnected())
-                	c.disconnect();
+                	c.disconnect("");
             }  
         });  
 		
@@ -58,7 +59,7 @@ public class ChatFrame extends JFrame{
 		else
 			name = message.split(" ")[0].trim();
 		
-		chatPanel.addLine(message, nameToColor(name));
+		chatPanel.addLine(message, nameToColor(name), name.equals("Admin"));
 	}
 	
 	public void connect(String name, String address, int port) {
@@ -71,9 +72,9 @@ public class ChatFrame extends JFrame{
 		validate();
 	}
 	
-	public void disconnect() {
+	public void disconnect(String message) {
 		chatPanel.getTextField().setEnabled(false);
-		addLine("Server: You have been disconnected");
+		addLine("Server: " + message);
 	}
 	
 	Color nameToColor(String name) {

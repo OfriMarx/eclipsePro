@@ -82,7 +82,12 @@ public class Server{
 	    
 	    String input = "";
 	    while(!input.equals("exit"))
+	    {
 	    	input = sc.nextLine();
+	    	if(input.equals("connect"))
+	    		new ChatFrame(true);
+	    }
+	    	
 	    
 	    s.closeServer();
 	}
