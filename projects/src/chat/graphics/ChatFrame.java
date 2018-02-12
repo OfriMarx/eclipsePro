@@ -37,7 +37,7 @@ public class ChatFrame extends JFrame{
 			@Override
             public void windowClosing(WindowEvent e) {
                 dispose();
-                if(c.isConnected())
+                if(c != null && c.isConnected())
                 	c.disconnect("");
             }  
         });  

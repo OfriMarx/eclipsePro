@@ -26,6 +26,8 @@ public class ChatLogin extends JPanel{
 		aLabel.setFont(f);
 		JLabel pLabel = new JLabel("Port:");
 		pLabel.setFont(f);
+		JLabel adminLabel = new JLabel("Secret admin password:");
+		adminLabel.setFont(f);
 		
 		JLabel error = new JLabel("");
 		error.setForeground(Color.RED);
@@ -33,7 +35,9 @@ public class ChatLogin extends JPanel{
 		//rearranging labels
 		sl.putConstraint(SpringLayout.NORTH, nLabel, 50, SpringLayout.NORTH, this);
 		sl.putConstraint(SpringLayout.EAST, nLabel, -50, SpringLayout.HORIZONTAL_CENTER, this);
-		sl.putConstraint(SpringLayout.NORTH, aLabel, 75, SpringLayout.SOUTH, nLabel);
+		sl.putConstraint(SpringLayout.NORTH, adminLabel, 75, SpringLayout.SOUTH, nLabel);
+		sl.putConstraint(SpringLayout.EAST, adminLabel, -50, SpringLayout.HORIZONTAL_CENTER, this);
+		sl.putConstraint(SpringLayout.NORTH, aLabel, 75, SpringLayout.SOUTH, adminLabel);
 		sl.putConstraint(SpringLayout.EAST, aLabel, -50, SpringLayout.HORIZONTAL_CENTER, this);
 		sl.putConstraint(SpringLayout.NORTH, pLabel, 75, SpringLayout.SOUTH, aLabel);
 		sl.putConstraint(SpringLayout.EAST, pLabel, -50, SpringLayout.HORIZONTAL_CENTER, this);
@@ -42,10 +46,13 @@ public class ChatLogin extends JPanel{
 		JTextField nField = new JTextField(20);
 		JTextField aField = new JTextField(20);
 		JTextField pField = new JTextField(20);
+		JTextField adminField = new JTextField(20);
 		
 		//rearranging text fields
 		sl.putConstraint(SpringLayout.WEST, nField, 5, SpringLayout.EAST, nLabel);
 		sl.putConstraint(SpringLayout.NORTH, nField, 10, SpringLayout.NORTH, nLabel);
+		sl.putConstraint(SpringLayout.WEST, adminField, 5, SpringLayout.EAST, adminLabel);
+		sl.putConstraint(SpringLayout.NORTH, adminField, 10, SpringLayout.NORTH, adminLabel);
 		sl.putConstraint(SpringLayout.WEST, aField, 5, SpringLayout.EAST, aLabel);
 		sl.putConstraint(SpringLayout.NORTH, aField, 10, SpringLayout.NORTH, aLabel);
 		sl.putConstraint(SpringLayout.WEST, pField, 5, SpringLayout.EAST, pLabel);
@@ -88,6 +95,8 @@ public class ChatLogin extends JPanel{
 		add(pField);
 		add(login);
 		add(error);
+		add(adminField);
+		add(adminLabel);
 	}
 	
 	private boolean isInteger(String s) {
