@@ -24,11 +24,9 @@ public class ChatPanel extends JPanel{
 	private int startLine = 0;
 	private JTextField tField = new JTextField(100);
 	private JScrollBar scrollBar;
-	private ChatFrame f;
 	private Client c;
 	
 	public ChatPanel(ChatFrame f, Client c) {
-		this.f = f;
 		this.c = c;
 		
 		setBackground(Color.WHITE);
@@ -40,8 +38,8 @@ public class ChatPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(!tField.getText().trim().isEmpty())
 				{
-					if(execute("Admin: " + tField.getText()))
-						c.writeAdmin("Admin: " + tField.getText());
+					if(f.isAdmin() && execute("Admin: " + tField.getText()))
+						c.writeAdmin(tField.getText());
 					else 
 					{
 						addLine(c.getName() + ": " + tField.getText(), f.nameToColor(c.getName()), false);
@@ -104,9 +102,6 @@ public class ChatPanel extends JPanel{
 	}
 	
 	private boolean execute(String s) {
-		if(!f.isAdmin())
-			return false;
-		
 		String[] command = s.split(" ").clone();
 		
 		if(command.length != 3 || !command[0].equals("Admin:"))

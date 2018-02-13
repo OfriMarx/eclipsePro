@@ -33,7 +33,7 @@ public class ServerThread{
 			output.close();
 			socket.close();
 			
-			server.sendAllExcept(name + " has disconnected", id);
+			server.sendAllExcept("Server: " + name + " has disconnected", id);
 			
 			System.out.println("ServerThread " + id + ": Disconnected");
 		} catch (IOException e) {

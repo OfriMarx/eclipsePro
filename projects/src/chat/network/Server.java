@@ -41,7 +41,6 @@ public class Server{
 					st.disconnect();
 			}
 				
-			
 			serverSocket.close();
 			System.out.println("server stopped");
 		} catch (IOException e) {
