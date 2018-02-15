@@ -2,10 +2,13 @@ package chat.mysql;
 
 public class SQL {
 
-	private static ForDataBase db = new ForDataBase();
+	private ForDataBase db;
 	
+	public SQL(String address){
+		db = new ForDataBase(address);
+	}
 	
-	public static boolean insertUser(String name, String password) {
+	public boolean insertUser(String name, String password) {
 		if(isTaken(name))
 			return false;
 		else {
@@ -14,7 +17,7 @@ public class SQL {
 		}
 	}
 	
-	public static boolean isTaken(String name) {
+	public boolean isTaken(String name) {
 		String[][] result = db.select("select * from chat where name='" + name + "';");
 		if(result.length > 0)
 			return true;
@@ -22,7 +25,7 @@ public class SQL {
 			return false;
 	}
 	
-	public static void updateUser(String name, String field, String newVal) {
+	public void updateUser(String name, String field, String newVal) {
 		if(!field.equals("admin"))
 			newVal = "'" + newVal + "'";
 		
@@ -30,12 +33,12 @@ public class SQL {
 			db.insertUpdateDelete("update chat set " + field + "=" + newVal + " where name='" + name + "';");
 	}
 	
-	public static void deleteUser(String name) {
+	public void deleteUser(String name) {
 		if(isTaken(name))
 			db.insertUpdateDelete("delete from chat where name='" + name + "';");
 	}
 	
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		deleteUser("hi");
 	}
 }
