@@ -1,4 +1,4 @@
-package chat.jdbc;
+package chat.mysql;
 import java.sql.*;
 
 public class ForDataBase {

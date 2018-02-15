@@ -1,4 +1,4 @@
-package chat.jdbc;
+package chat.mysql;
 
 public class SQL {
 
