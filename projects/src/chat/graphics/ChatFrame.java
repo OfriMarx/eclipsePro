@@ -14,7 +14,7 @@ import chat.network.Client;
 public class ChatFrame extends JFrame{
 
 	private ChatPanel chatPanel;
-	private ChatLogin loginPanel;
+	private ChatSignLogin loginPanel;
 	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN};
 	private int colorIndex = -1;
 	final private int numOfColors = 3;
@@ -42,7 +42,7 @@ public class ChatFrame extends JFrame{
             }  
         });  
 		
-		loginPanel = new ChatLogin(this);
+		loginPanel = new ChatSignLogin(this);
 		add(loginPanel);
 		
 		validate();

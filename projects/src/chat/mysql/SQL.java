@@ -38,7 +38,8 @@ public class SQL {
 			db.insertUpdateDelete("delete from chat where name='" + name + "';");
 	}
 	
-	public void main(String[] args) {
-		deleteUser("hi");
+	public String getPassword(String name) {
+		String[][] result = db.select("select password from chat where name='" + name + "';");
+		return result[0][0];
 	}
 }
