@@ -20,11 +20,9 @@ public class ChatFrame extends JFrame{
 	final private int numOfColors = 3;
 	public HashMap<String, Color> colorMap = new HashMap<>();
 	private Client c;
-	private boolean admin;
+	private boolean admin = false;
 	
-	public ChatFrame(boolean admin) {
-		this.admin = admin;
-		
+	public ChatFrame() {		
 		setTitle("Title?");
 		Dimension d = new Dimension(800, 600);
 		setSize(d);
@@ -62,7 +60,8 @@ public class ChatFrame extends JFrame{
 		chatPanel.addLine(message, nameToColor(name), name.equals("Admin"));
 	}
 	
-	public void connect(String name, String address, int port) {
+	public void connect(String name, String address, int port, boolean admin) {
+		this.admin = admin;
 		c = new Client(address, port, name, this);
 		chatPanel = new ChatPanel(this, c);
 		remove(loginPanel);
@@ -93,6 +92,6 @@ public class ChatFrame extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new ChatFrame(false);
+		new ChatFrame();
 	}
 }

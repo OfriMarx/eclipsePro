@@ -88,7 +88,7 @@ public class ChatSignLogin extends JPanel{
 		login.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String name = nField.getText(), address = aField.getText().trim(), password = pField.getText().trim();
+				String name = nField.getText(), address = aField.getText().trim(), password = pField.getText();
 				
 				if(validDetails(name, password, address)) {
 					if(sql == null)
@@ -103,7 +103,7 @@ public class ChatSignLogin extends JPanel{
 						error.setText("password is incorrect");
 					}
 					else
-						frame.connect(name, address, 7444);
+						frame.connect(name, address, 7444, sql.isAdmin(name));
 						
 				}
 			}

@@ -18,7 +18,7 @@ public class SQL {
 	}
 	
 	public boolean isTaken(String name) {
-		String[][] result = db.select("select * from chat where name='" + name + "';");
+		String[][] result = db.select("select * from chat where binary name='" + name + "';");
 		if(result.length > 0)
 			return true;
 		else
@@ -30,16 +30,29 @@ public class SQL {
 			newVal = "'" + newVal + "'";
 		
 		if(isTaken(name))
-			db.insertUpdateDelete("update chat set " + field + "=" + newVal + " where name='" + name + "';");
+			db.insertUpdateDelete("update chat set " + field + "=" + newVal + " where binary name='" + name + "';");
 	}
 	
 	public void deleteUser(String name) {
 		if(isTaken(name))
-			db.insertUpdateDelete("delete from chat where name='" + name + "';");
+			db.insertUpdateDelete("delete from chat where binary name='" + name + "';");
 	}
 	
 	public String getPassword(String name) {
-		String[][] result = db.select("select password from chat where name='" + name + "';");
-		return result[0][0];
+		String[][] result = db.select("select password from chat where binary name='" + name + "';");
+		
+		if(result.length > 0)
+			return result[0][0];
+		else
+			return "";
+	}
+	
+	public boolean isAdmin(String name) {
+		String[][] result = db.select("select admin from chat where binary name='" + name + "';");
+		
+		if(result.length > 0 && result[0][0].equals("1"))
+			return true;
+		else
+			return false;
 	}
 }

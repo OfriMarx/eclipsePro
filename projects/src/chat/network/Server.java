@@ -77,14 +77,14 @@ public class Server{
 	public static void main(String[] args) {
 	    Server s = new Server(7444);
 	    
-	    new ChatFrame(true);
+	    new ChatFrame();
 	    
 	    String input = "";
 	    while(!input.equals("exit"))
 	    {
 	    	input = sc.nextLine();
 	    	if(input.equals("connect"))
-	    		new ChatFrame(true);
+	    		new ChatFrame();
 	    }
 	    	
 	    
