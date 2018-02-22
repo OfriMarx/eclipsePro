@@ -15,9 +15,9 @@ public class ChatFrame extends JFrame{
 
 	private ChatPanel chatPanel;
 	private ChatSignLogin loginPanel;
-	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN};
+	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.PINK, Color.ORANGE, Color.GRAY};
 	private int colorIndex = -1;
-	final private int numOfColors = 3;
+	final private int numOfColors = 7;
 	public HashMap<String, Color> colorMap = new HashMap<>();
 	private Client c;
 	private boolean admin = false;
