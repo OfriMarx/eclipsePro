@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import chat.graphics.ChatFrame;
+
 public class Server{
 	
 	public static Scanner sc = new Scanner(System.in);
@@ -74,7 +76,8 @@ public class Server{
 
 	public static void main(String[] args) {
 	    Server s = new Server(7444);
-	    	    
+	    new ChatFrame(true);
+	    
 	    String input = "";
 	    while(!input.equals("exit"))
 	    	input = sc.nextLine();

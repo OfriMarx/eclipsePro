@@ -14,7 +14,7 @@ import chat.network.Client;
 public class ChatFrame extends JFrame{
 
 	private ChatPanel chatPanel;
-	private ChatSignLogin loginPanel;
+	private ChatLogin loginPanel;
 	private Color colors[] = {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.PINK, Color.ORANGE, Color.GRAY};
 	private int colorIndex = -1;
 	final private int numOfColors = 7;
@@ -22,13 +22,14 @@ public class ChatFrame extends JFrame{
 	private Client c;
 	private boolean admin = false;
 	
-	public ChatFrame() {		
+	public ChatFrame(boolean admin) {		
 		setTitle("Title?");
 		Dimension d = new Dimension(800, 600);
 		setSize(d);
 		setLocationRelativeTo(null);
 		colorMap.put("Server", Color.BLACK);
 		colorMap.put("Admin", Color.BLACK);
+		this.admin = admin;
 		
 		addWindowListener(new WindowAdapter(){ 
 			
@@ -40,7 +41,7 @@ public class ChatFrame extends JFrame{
             }  
         });  
 		
-		loginPanel = new ChatSignLogin(this);
+		loginPanel = new ChatLogin(this);
 		add(loginPanel);
 		
 		validate();
@@ -60,8 +61,7 @@ public class ChatFrame extends JFrame{
 		chatPanel.addLine(message, nameToColor(name), name.equals("Admin"));
 	}
 	
-	public void connect(String name, String address, int port, boolean admin) {
-		this.admin = admin;
+	public void connect(String name, String address, int port) {
 		c = new Client(address, port, name, this);
 		chatPanel = new ChatPanel(this, c);
 		remove(loginPanel);
@@ -92,6 +92,6 @@ public class ChatFrame extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		new ChatFrame();
+		new ChatFrame(false);
 	}
 }
