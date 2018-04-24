@@ -42,6 +42,23 @@ public class Life {
 		}
 	}
 	
+	public static int numOfNeighbors(int x, int y, String[][] old_arr)
+	{
+		int count = 0;
+		for(int i=-1; i<2; i++)
+		{
+			for(int k=-1; k<2; k++)
+			{
+				if(i == 0 && k == 0)
+					continue;
+				if(old_arr[x+i][y+k] == "1")
+					count++;
+			}
+		}
+		
+		return count;
+	}
+	
 	public static String[][] next_gen(String[][] old_arr)
 	{
 		genNum++;
@@ -61,23 +78,7 @@ public class Life {
 		{
 			for(int k=1; k<SIZE+1; k++)
 			{
-				count = 0;
-				if(old_arr[i-1][k-1] == "1")
-					count++;
-				if(old_arr[i-1][k] == "1")
-					count++;
-				if(old_arr[i-1][k+1] == "1")
-					count++;
-				if(old_arr[i][k-1] == "1")
-					count++;
-				if(old_arr[i][k+1] == "1")
-					count++;
-				if(old_arr[i+1][k-1] == "1")
-					count++;
-				if(old_arr[i+1][k] == "1")
-					count++;
-				if(old_arr[i+1][k+1] == "1")
-					count++;
+				count = numOfNeighbors(i, k, old_arr);
 				
 				if(old_arr[i][k] == "1")
 				{
