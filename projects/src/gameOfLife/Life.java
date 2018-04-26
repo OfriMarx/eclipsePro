@@ -1,23 +1,38 @@
 package gameOfLife;
 
+import java.util.Scanner;
+
 public class Life {
 
 	public static int SIZE = 40;
 	private static String[][] cells = new String[SIZE+2][SIZE+2];
 	private static String[][] previousGen = new String[SIZE+2][SIZE+2];
 	private static int genNum = 1;
+	public static Scanner in = new Scanner(System.in);
 	
-	public static String[][] fill_arr(String [][] arr, String shape)
+	/**
+	 * Function initializes array
+	 */
+	public static String[][] fill_arr(String [][] arr)
 	{
 		for(int i=0; i<SIZE+2; i++)
 		{
 			for(int k=0; k<SIZE+2; k++)
-				arr[i][k] = "0";
+			{
+				if(i == k || i + k == SIZE + 1)
+					arr[i][k] = "1";
+				else
+					arr[i][k] = "0";	
+			}
 		}
 		
 		return arr;
 	}
 	
+	/**
+	 * Function prints array without graphics.
+	 * Not used anymore, replaced by graphics.
+	 */
 	public static void print_arr(String[][] arr, int gen)
 	{
 		System.out.println("gen " + gen);
@@ -26,22 +41,18 @@ public class Life {
 		{
 			for(int k=1; k<SIZE+1; k++)
 			{
-				if(k==SIZE)
-					if(arr[i][k] == "1")
-						System.out.println("* ");
-					else
-						System.out.println("- ");
+				if(arr[i][k] == "1")
+					System.out.print("* ");
 				else
-					if(arr[i][k] == "1")
-						System.out.print("* ");
-					else
-						System.out.print("- ");
+					System.out.print("- ");
 			}
-			if(i==SIZE)
-				System.out.println(" ");
+			System.out.println("");
 		}
 	}
 	
+	/**
+	 * Function returns number of neighbors of a given cell in the array
+	 */
 	public static int numOfNeighbors(int x, int y, String[][] old_arr)
 	{
 		int count = 0;
@@ -59,6 +70,9 @@ public class Life {
 		return count;
 	}
 	
+	/**
+	 * Function calculates and returns array with the next generation
+	 */
 	public static String[][] next_gen(String[][] old_arr)
 	{
 		genNum++;
@@ -82,7 +96,6 @@ public class Life {
 				
 				if(old_arr[i][k] == "1")
 				{
-					
 					if(count > 3)
 						new_arr[i][k] = "0";
 					else if(count < 2)
@@ -91,7 +104,6 @@ public class Life {
 				}
 				else if(count == 3)
 					new_arr[i][k] = "1";
-				
 			}
 		}
 		
@@ -125,10 +137,23 @@ public class Life {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("1 for console mode, 2 for graphical mode");
+		int input = in.nextInt();
 		
-		cells = fill_arr(cells, "X");
-		new Board();
-		Board.cellsToBoard();
-		Board.setText();
+		cells = fill_arr(cells);
+		
+		if(input == 2) {
+			new Board();
+			Board.cellsToBoard();
+			Board.setText();
+		}
+		else {
+			SIZE = 10;
+			cells = fill_arr(new String[SIZE+2][SIZE+2]);
+			for(int i=0; i<10; i++) {
+				print_arr(cells, i+1);
+				cells = next_gen(cells);
+			}
+		}
 	}
 }
