@@ -1,6 +1,6 @@
 package ticTacToe;
 import java.util.Scanner;
- 
+
 public class Board {
 
 	private static Scanner in = new Scanner(System.in);
@@ -17,7 +17,7 @@ public class Board {
 	/**
 	 * Returns false if out of range and true otherwise
 	 */
-	private boolean checkRange(int r, int c) {
+	private boolean inRange(int r, int c) {
 		if(r > 2 || r < 0 || c > 2 || c < 0)
 			return false;
 		else
@@ -41,7 +41,7 @@ public class Board {
 	 * Changes a given location in the board to a given String
 	 */
 	public void changeBoard(int r, int c, String sign) {
-		while(!checkRange(r, c) || !board[r][c].equals("-")) {
+		while(!inRange(r, c) || !board[r][c].equals("-")) {
 			System.out.println("Place taken or out of range. Enter a different location");
 			r = in.nextInt()-1;
 			c = in.nextInt()-1;
