@@ -1,6 +1,6 @@
 package ticTacToe;
 import java.util.Scanner;
- 
+
 public class Board {
 
 	private static Scanner in = new Scanner(System.in);
