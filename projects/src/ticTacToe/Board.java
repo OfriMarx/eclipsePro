@@ -1,6 +1,6 @@
 package ticTacToe;
 import java.util.Scanner;
-
+ 
 public class Board {
 
 	private static Scanner in = new Scanner(System.in);
@@ -8,8 +8,7 @@ public class Board {
 	public String[][] board = new String[3][3]; 
 	
 	public Board() {
-		for(int i=0; i<3; i++)
-		{
+		for(int i=0; i<3; i++) {
 			for(int j=0; j<3; j++)
 				board[i][j] = "-";
 		}
@@ -42,8 +41,7 @@ public class Board {
 	 * Changes a given location in the board to a given String
 	 */
 	public void changeBoard(int r, int c, String sign) {
-		while(!checkRange(r, c) || !board[r][c].equals("-"))
-		{
+		while(!checkRange(r, c) || !board[r][c].equals("-")) {
 			System.out.println("Place taken or out of range. Enter a different location");
 			r = in.nextInt()-1;
 			c = in.nextInt()-1;
@@ -52,8 +50,7 @@ public class Board {
 		board[r][c] = sign;
 	}
 	
-	public void eraseSign(int r, int c)
-	{
+	public void eraseSign(int r, int c) {
 		board[r][c] = "-";
 	}
 	
@@ -63,8 +60,7 @@ public class Board {
 	public boolean checkBoard(String sign) {
 		String str;
 		
-		for(int i=0; i<3; i++)
-		{
+		for(int i=0; i<3; i++) {
 			str = "";
 			for(int j=0; j<3; j++)
 				str += board[i][j];
@@ -73,8 +69,7 @@ public class Board {
 				return true;
 		}
 		
-		for(int i=0; i<3; i++)
-		{
+		for(int i=0; i<3; i++) {
 			str = "";
 			for(int j=0; j<3; j++)
 				str += board[j][i];
