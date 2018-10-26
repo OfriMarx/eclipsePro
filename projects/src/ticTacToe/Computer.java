@@ -10,43 +10,13 @@ public class Computer {
 		this.board = board;
 	}
 	
-	public void turn() {
+	public void turn(int turn) {
 		if(blockOrWin(sign))
 			return;
 		else if(blockOrWin(enemySign))
 			return;
-		
-		move();
-	}
-	
-	private int move() {
-		if(board.board[1][1] == "-") {
-			board.changeBoard(1, 1, sign);
-			return 0;
-		}
-		
-		for(int i=0; i<3; i++) {
-			for(int j=0; j<3; j++) {
-				if(board.board[i][j] == "-" && (Math.abs(i-j) == 2 || Math.abs(i-j) == 0)) {
-					board.changeBoard(i, j, sign);
-					return 0;
-				}
-			}
-		}
-		
-		randomMove();
-		return 0;
-	}
-	
-	private void randomMove() {
-		int n1 = (int)(Math.random() * 3), n2 = (int)(Math.random() * 3);
-		
-		while(board.board[n1][n2] != "-") {
-			n1 = (int)(Math.random() * 3);
-			n2 = (int)(Math.random() * 3);
-		}
-		
-		board.changeBoard(n1, n2, sign);
+
+		move(turn);
 	}
 	
 	private boolean blockOrWin(String s) {
@@ -68,5 +38,29 @@ public class Computer {
 		}
 		
 		return false;
+	}
+	
+	private boolean move(int turn, String sign) {
+		boolean result = false;
+		
+		if(turn < 9) {
+			for(int i=0; i<3 && !result; i++) {
+				for(int j=0; j<3 && ! result; j++) {
+					if(board.board[i][j] != Board.DEFAULT_SIGN) {
+						board.changeBoard(i, j, sign);
+						
+						if(sign == this.sign && board.checkBoard(sign)) {
+							board.eraseSign(i, j);
+							return true;
+						}
+						
+						result = move(turn++, sign.equals(this.sign) ? enemySign : sign);
+						board.eraseSign(i, j);
+					}
+				}
+			}
+		}
+		
+		return result;
 	}
 }

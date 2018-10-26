@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Board {
 
+	public static final String DEFAULT_SIGN = "-";
+	
 	private static Scanner in = new Scanner(System.in);
 	
 	public String[][] board = new String[3][3]; 
@@ -10,7 +12,7 @@ public class Board {
 	public Board() {
 		for(int i=0; i<3; i++) {
 			for(int j=0; j<3; j++)
-				board[i][j] = "-";
+				board[i][j] = DEFAULT_SIGN;
 		}
 	}
 	
@@ -41,7 +43,7 @@ public class Board {
 	 * Changes a given location in the board to a given String
 	 */
 	public void changeBoard(int r, int c, String sign) {
-		while(!inRange(r, c) || !board[r][c].equals("-")) {
+		while(!inRange(r, c) || !board[r][c].equals(DEFAULT_SIGN)) {
 			System.out.println("Place taken or out of range. Enter a different location");
 			r = in.nextInt()-1;
 			c = in.nextInt()-1;
@@ -51,7 +53,7 @@ public class Board {
 	}
 	
 	public void eraseSign(int r, int c) {
-		board[r][c] = "-";
+		board[r][c] = DEFAULT_SIGN;
 	}
 	
 	/**
